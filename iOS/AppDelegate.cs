@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using MyPlaces.Standard.Data;
 using UIKit;
 
 namespace MyPlaces.iOS
@@ -12,6 +13,8 @@ namespace MyPlaces.iOS
     {
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            DataAccessLayer.DbFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
             global::Xamarin.Forms.Forms.Init();
 
             LoadApplication(new App());

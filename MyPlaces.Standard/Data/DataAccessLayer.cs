@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SQLite;
+using System.IO;
 
 namespace MyPlaces.Standard.Data
 {
@@ -9,6 +11,12 @@ namespace MyPlaces.Standard.Data
     {
         private static List<Photo> photos = new List<Photo>();
         private static List<Category> categories = new List<Category>();
+
+        protected SQLiteAsyncConnection connection;
+
+        public static string DbFolder { get; set; }
+
+        private static string dbFile = "photos.db";
 
         static DataAccessLayer()
         {
@@ -19,41 +27,56 @@ namespace MyPlaces.Standard.Data
             categories.Add(new Category { CategoryId = 2, Name = "Schiffe", Color = "#00FF00" });
         }
 
+        public DataAccessLayer()
+        {
+            connection = new SQLiteAsyncConnection(Path.Combine(DbFolder, dbFile));
+        }
+
+        public static void InitializeDb()
+        {
+            using (SQLiteConnection cnn = new SQLiteConnection(Path.Combine(DbFolder, dbFile)))
+            {
+                // make sure tables exist
+                cnn.CreateTable<Photo>();
+                cnn.CreateTable<Category>();
+
+                // add some test-data if necessary
+                if (!cnn.Table<Photo>().Any())
+                    cnn.InsertAll(photos);
+
+                if (!cnn.Table<Category>().Any())
+                    cnn.InsertAll(categories);
+            }
+        }
+
         public async Task<List<Photo>> GetAllPhotos()
         {
-            await Task.Delay(100);
-            return photos;
+            return await connection.Table<Photo>().ToListAsync();
         }
 
         public async Task<Photo> GetPhotoById(int id)
         {
-            await Task.Delay(100);
-            // return photos.Single((e) => { return e.Id == id; });
-            return photos.Single(photo => photo.PhotoId == id);
+            return await connection.Table<Photo>().Where(photo => photo.PhotoId == id).FirstOrDefaultAsync();
         }
 
         public async Task AddPhoto(Photo photo)
         {
-            await Task.Delay(100);
-            photos.Add(photo);
+            await connection.InsertAsync(photo);
         }
 
         public async Task<List<Category>> GetAllCategories()
         {
-            await Task.Delay(100);
-            return categories;
+            return await connection.Table<Category>().ToListAsync();
         }
 
         public async Task<Category> GetCategoryById(int id)
         {
-            await Task.Delay(100);
-            return categories.Single(category => category.CategoryId == id);
+            return await connection.Table<Category>().Where(category => category.CategoryId == id).FirstOrDefaultAsync();
         }
 
         public async Task AddCategory(Category category)
         {
-            await Task.Delay(100);
-            categories.Add(category);
+            await connection.InsertAsync(category);
         }
     }
 }

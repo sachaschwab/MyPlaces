@@ -7,6 +7,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using MyPlaces.Standard.Data;
 
 namespace MyPlaces.Droid
 {
@@ -17,6 +18,8 @@ namespace MyPlaces.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+
+            DataAccessLayer.DbFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
 
             base.OnCreate(bundle);
 

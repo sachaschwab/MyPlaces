@@ -1,4 +1,5 @@
 ﻿using MyPlaces.Standard;
+using MyPlaces.Standard.Data;
 using Xamarin.Forms;
 
 namespace MyPlaces
@@ -8,7 +9,7 @@ namespace MyPlaces
         public App()
         {
             InitializeComponent();
-
+            DataAccessLayer.InitializeDb();
             MainPage = new MainPage();
         }
 
