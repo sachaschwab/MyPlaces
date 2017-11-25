@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
 
+
 namespace MyPlaces.Standard
 {
     public partial class MapPage : ContentPage
@@ -31,19 +32,31 @@ namespace MyPlaces.Standard
 
             Karte.Pins.Clear();
 
-            Karte.MoveToRegion(MapSpan.FromCenterAndRadius(
-                new Position(47.2, 8.8),
+            var photo1 = photos[0];
+            var photo2 = photos[1];
 
-                Distance.FromKilometers(20)));
+            var biggestLat = 47.5;
+            var lowestLat = 47.0;
+            var biggestLong = 8.9;
+            var lowestLong = 8.8;
+
+            var distance = Data.DistanceCalculator.GetDistanceInMetres(photo1.Latitude, photo1.Longitude, photo2.Latitude, photo2.Longitude);
+            Console.WriteLine("Distance = {0}", distance);
+
+            Karte.MoveToRegion(MapSpan.FromCenterAndRadius(
+                new Position(biggestLat - ((biggestLat - lowestLat)/2), biggestLong - ((biggestLong - lowestLong) / 2)),
+
+                Distance.FromMeters(distance)));
 
             foreach (var photo in photos)
             {
                 var pin = new Pin
                 {
-                    Type = PinType.Place,
+                    Type = PinType.Generic,
                     Position = new Position(photo.Latitude, photo.Longitude),
                     Label = photo.Title,
                     //Address = "HSR",
+
                 };
 
                 Karte.Pins.Add(pin);
