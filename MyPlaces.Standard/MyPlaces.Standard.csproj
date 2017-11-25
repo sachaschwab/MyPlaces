@@ -22,4 +22,7 @@
     <PackageReference Include="Xamarin.Forms.Maps" Version="2.5.0.91635" />
     <PackageReference Include="Xam.Plugin.Media" Version="3.0.1" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
 </Project>
