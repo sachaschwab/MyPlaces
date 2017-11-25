@@ -2,6 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="MyPlaces.Standard.MapPage"
+    xmlns:local="clr-namespace:MyPlaces"
+    xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
     Title="Map">
-    <Label Text="MapPage"/>
+    <StackLayout>
+        <Label Text="MyPlaces Map Page"/>
+        <maps:Map x:Name="Karte" MapType="Street" 
+              VerticalOptions="FillAndExpand" 
+              IsShowingUser="true">
+        </maps:Map>
+    </StackLayout>
+    
 </ContentPage>

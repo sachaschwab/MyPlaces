@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
 using Foundation;
 using MyPlaces.Standard.Data;
 using UIKit;
+using Xamarin.Forms.Maps;
 
 namespace MyPlaces.iOS
 {
@@ -24,6 +24,7 @@ namespace MyPlaces.iOS
             App.PhotoUtility.GenerateThumbnail(imgPath, 100);
 
             global::Xamarin.Forms.Forms.Init();
+            Xamarin.FormsMaps.Init(); 
 
             LoadApplication(new App());
 
