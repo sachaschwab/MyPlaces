@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using MyPlaces.Standard;
+using Xamarin.Forms;
 
 namespace MyPlaces
 {
@@ -8,7 +9,7 @@ namespace MyPlaces
         {
             InitializeComponent();
 
-            MainPage = new MyPlacesPage();
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()
