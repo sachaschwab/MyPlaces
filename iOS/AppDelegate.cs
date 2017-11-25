@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 using Foundation;
@@ -14,6 +15,13 @@ namespace MyPlaces.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             DataAccessLayer.DbFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            App.PhotoUtility = new PhotoUtility_iOS();
+
+            UIImage testImage = UIImage.FromBundle("TestImage.png");
+            string imgPath = Path.Combine(App.PhotoUtility.PhotoBasePath, "TestImage.png"); 
+            testImage.AsJPEG().Save(imgPath, false);
+            App.PhotoUtility.GenerateThumbnail(imgPath, 100);
 
             global::Xamarin.Forms.Forms.Init();
 

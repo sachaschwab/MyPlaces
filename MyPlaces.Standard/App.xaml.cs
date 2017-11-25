@@ -13,6 +13,8 @@ namespace MyPlaces
             MainPage = new MainPage();
         }
 
+        public static IPhotoUtility PhotoUtility { get; set; }
+
         protected override void OnStart()
         {
             // Handle when your app starts
