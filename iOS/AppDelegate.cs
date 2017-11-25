@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Foundation;
 using UIKit;
+using Xamarin.Forms.Maps;
 
 namespace MyPlaces.iOS
 {
@@ -13,6 +13,7 @@ namespace MyPlaces.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            Xamarin.FormsMaps.Init(); 
 
             LoadApplication(new App());
 
