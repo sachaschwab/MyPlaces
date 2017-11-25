@@ -13,7 +13,7 @@ namespace MyPlaces.Standard.Data
         static DataAccessLayer()
         {
             photos.Add(new Photo { PhotoId = 1, CategoryId = 1, Title = "Haus", Description = "Leider nicht meins", Date = DateTime.Parse("2017-10-01"), Latitude = 47.2, Longitude = 8.8 });
-            photos.Add(new Photo { PhotoId = 2, CategoryId = 2, Title = "Schiff", Description = "Leider nicht meins", Date = DateTime.Parse("2017-10-02"), Latitude = 47.5, Longitude = 8.3 });
+            photos.Add(new Photo { PhotoId = 2, CategoryId = 2, Title = "Schiff", Description = "Leider nicht meins", Date = DateTime.Parse("2017-10-02"), Latitude = 47.3, Longitude = 8.81 });
 
             categories.Add(new Category { CategoryId = 1, Name = "Häuser", Color = "#FF0000" });
             categories.Add(new Category { CategoryId = 2, Name = "Schiffe", Color = "#00FF00" });
