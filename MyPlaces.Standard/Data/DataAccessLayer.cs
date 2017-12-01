@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SQLite;
 using System.IO;
+using System.Diagnostics;
 
 namespace MyPlaces.Standard.Data
 {
@@ -36,6 +37,7 @@ namespace MyPlaces.Standard.Data
         {
             using (SQLiteConnection cnn = new SQLiteConnection(Path.Combine(DbFolder, dbFile)))
             {
+                Debug.WriteLine($"### DBFolder: {DbFolder}");
                 // make sure tables exist
                 cnn.CreateTable<Place>();
                 cnn.CreateTable<Category>();
@@ -77,6 +79,11 @@ namespace MyPlaces.Standard.Data
         public async Task AddCategory(Category category)
         {
             await connection.InsertAsync(category);
+        }
+
+        public async Task UpdateCategory(Category category)
+        {
+            await connection.UpdateAsync(category);
         }
     }
 }

@@ -2,12 +2,15 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using MyPlaces.Standard.Data;
+using System.Linq;
 
 namespace MyPlaces.Standard.ViewModels
 {
     public class CategoryListViewModel : BaseViewModel
     {
         private DataAccessLayer dal = new DataAccessLayer();
+
+        public EditCategoryViewModel EditCategoryViewModel { get; set; } = new EditCategoryViewModel();
 
         public CategoryListViewModel()
         {
@@ -17,11 +20,12 @@ namespace MyPlaces.Standard.ViewModels
         private async Task LoadData()
         {
             List<Category> result = await dal.GetAllCategories();
-            Categories = result;
+            Categories = result.Select(e => new CategoryViewModel(e)).ToList();
+            // EditCategoryViewModel.Category = Categories.FirstOrDefault();
         }
 
-        private List<Category> categories;
-        public List<Category> Categories 
+        private List<CategoryViewModel> categories;
+        public List<CategoryViewModel> Categories 
         { 
             get { return categories; }
             set {

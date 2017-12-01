@@ -3,15 +3,41 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="MyPlaces.Standard.CategoryListPage"
     Title="Categories">
-    <ListView ItemsSource="{Binding Categories}">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <Grid BackgroundColor="{Binding Color}" Padding="10,0">
-                        <Label Text="{Binding Name}" VerticalTextAlignment="Center"/>
-                    </Grid>
-                </ViewCell> 
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+    <StackLayout>
+        <Grid x:Name="EditControl" IsVisible="false" BindingContext="{Binding EditCategoryViewModel}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Text="Name"/>
+            <Entry Grid.Column="1" Text="{Binding Category.Name}"/>
+            <Slider Grid.Row="1" Minimum="0" Maximum="255" BackgroundColor="#FF0000" Value="{Binding Red, Mode=TwoWay}"/>
+            <Slider Grid.Row="2" Minimum="0" Maximum="255" BackgroundColor="#00FF00" Value="{Binding Green, Mode=TwoWay}"/>
+            <Slider Grid.Row="3" Minimum="0" Maximum="255" BackgroundColor="#0000FF" Value="{Binding Blue, Mode=TwoWay}"/>
+            <BoxView Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Color="{Binding Color}"/>
+<!--            <Button Grid.Column="0" Grid.Row="4" Text="Cancel" Clicked="Cancel_Clicked"/>-->
+            <Button Grid.ColumnSpan="2" Grid.Row="4" Text="Save" Clicked="Save_Clicked" Command="{Binding SaveCommand}"/>
+        </Grid>
+        <ListView ItemsSource="{Binding Categories}" ItemTapped="Handle_ItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Edit" Command="{Binding EditCommand}" />
+                        </ViewCell.ContextActions>
+                        <Grid BackgroundColor="{Binding Category.Color}" Padding="10,0">
+                            <Label Text="{Binding Category.Name}" VerticalTextAlignment="Center"/>
+                        </Grid>
+                    </ViewCell> 
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>

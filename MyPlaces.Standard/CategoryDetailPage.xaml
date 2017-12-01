@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="MyPlaces.Standard.CategoryDetailPage">
+    <StackLayout>
+        <Label Text="Name"/>
+        <Entry Text="{Binding Name}"/>
+        <Label Text="Color"/>
+        <BoxView Color="{Binding Color}"/>
+        <Slider Minimum="0" Maximum="255" BackgroundColor="Red" Value="{Binding Red, Mode=TwoWay}"/>
+        <Slider Minimum="0" Maximum="255" Value="{Binding Green, Mode=TwoWay}"/>
+        <Slider Minimum="0" Maximum="255" Value="{Binding Blue, Mode=TwoWay}"/>
+        <Button Text="Save"/>
+    </StackLayout>
+</ContentPage>
