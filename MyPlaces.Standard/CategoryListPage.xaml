@@ -3,5 +3,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="MyPlaces.Standard.CategoryListPage"
     Title="Categories">
-    <Label Text="CategoryListPage"/>
+    <ListView ItemsSource="{Binding Categories}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <Grid BackgroundColor="{Binding Color}" Padding="10,0">
+                        <Label Text="{Binding Name}" VerticalTextAlignment="Center"/>
+                    </Grid>
+                </ViewCell> 
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </ContentPage>

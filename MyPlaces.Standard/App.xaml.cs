@@ -1,5 +1,6 @@
 ﻿using MyPlaces.Standard;
 using MyPlaces.Standard.Data;
+using MyPlaces.Standard.ViewModels;
 using Xamarin.Forms;
 
 namespace MyPlaces
@@ -10,7 +11,7 @@ namespace MyPlaces
         {
             InitializeComponent();
             DataAccessLayer.InitializeDb();
-            MainPage = new MainPage();
+            MainPage = new MainPage { BindingContext = new MainPageViewModel() };
         }
 
         public static IPhotoUtility PhotoUtility { get; set; }
