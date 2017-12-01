@@ -4054,6 +4054,15 @@ namespace MyPlaces.Droid
 			// aapt resource value: 0x7f09004e
 			public const int path_password_strike_through = 2131296334;
 			
+			// aapt resource value: 0x7f090051
+			public const int permission_alert_button_text = 2131296337;
+			
+			// aapt resource value: 0x7f090050
+			public const int permission_alert_text = 2131296336;
+			
+			// aapt resource value: 0x7f09004f
+			public const int permission_alert_title = 2131296335;
+			
 			// aapt resource value: 0x7f090039
 			public const int search_menu_title = 2131296313;
 			

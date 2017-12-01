@@ -8,6 +8,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using MyPlaces.Standard.Data;
+using Android;
 
 namespace MyPlaces.Droid
 {
@@ -26,8 +27,28 @@ namespace MyPlaces.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            
 
             LoadApplication(new App());
+        }
+
+        public void RequestLocationPermission()
+        {
+            RequestPermissions(new string[] { Manifest.Permission.AccessCoarseLocation, Manifest.Permission.AccessFineLocation }, 1);
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            if (requestCode != 1)
+                return;
+
+            if (grantResults[0] == Permission.Denied)
+            {
+                App.LocationPermission = false;
+            }else{
+                App.LocationPermission = true;
+            }
+                
         }
     }
 }

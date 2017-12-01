@@ -18,6 +18,8 @@ namespace MyPlaces
 
         public int CurrentCategoryID { get; set; }
 
+        public static bool LocationPermission = false;
+
         protected override void OnStart()
         {
             // Handle when your app starts

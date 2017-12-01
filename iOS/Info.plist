@@ -7,7 +7,7 @@
 	<key>CFBundleName</key>
 	<string>MyPlaces</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.styleterrorist.myPlaces</string>
+	<string>com.styleterrorist.MyPlaces</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -48,5 +48,9 @@
 	<string>This app needs access to the camera to take photos.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This app needs access to the camera to take photos.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>New Entry</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>This App needs accessto the calendar.</string>
 </dict>
 </plist>

@@ -3,9 +3,36 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="MyPlaces.Standard.NewPhotoPage"
     Title="New Photo">
-    <StackLayout>
-        <Label Text="NewPhotoPage"/>
-        <Image x:Name="Foto"/>
-        <Button x:Name="CameraButton" Text="make a picture!"/>
-    </StackLayout>
+    <ScrollView>
+        <StackLayout>
+            <Label Text="NewPhotoPage"/>
+            <Button x:Name="CameraButton" 
+                    Text="take a picture!"/>
+            <Image x:Name="Foto" 
+                    WidthRequest="200"
+                    MinimumWidthRequest="200"
+                    HeightRequest="200"
+                    MinimumHeightRequest="200"
+                    BackgroundColor="Silver"
+                    HorizontalOptions="Center"/>
+            <Label x:Name="DateTimeLabel" 
+                    HorizontalOptions="Center"/>
+            <Button x:Name="MapButten" 
+                    Text="show on map"/>
+            <Entry x:Name="TitleText" 
+                    Placeholder="Title" 
+                    IsEnabled="false"/>
+            <Editor x:Name="NoteText"
+                    HeightRequest="200"
+                    MinimumHeightRequest="200"
+                    IsEnabled="false"/>
+            <Picker x:Name="CategoryPicker" 
+                    IsVisible="false"/>
+            <Label x:Name="CategoryLabel" 
+                    IsVisible="false"/>
+            <Button x:Name="SaveButton" 
+                    Text="SAVE"
+                    IsVisible="false"/>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
