@@ -26,6 +26,7 @@ namespace MyPlaces.Standard
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+
             var photos = await dataAccessLayer.GetAllPhotos();
 
             Console.WriteLine("Photo Title = {0}", photos[0].Title);
