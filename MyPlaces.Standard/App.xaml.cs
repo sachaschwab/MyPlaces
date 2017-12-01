@@ -15,6 +15,8 @@ namespace MyPlaces
 
         public static IPhotoUtility PhotoUtility { get; set; }
 
+        public int CurrentCategoryID { get; set; }
+
         protected override void OnStart()
         {
             // Handle when your app starts

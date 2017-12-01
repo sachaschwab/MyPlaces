@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using MyPlaces.Standard.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
@@ -13,12 +14,13 @@ namespace MyPlaces.Standard
         Data.DataAccessLayer dataAccessLayer = new Data.DataAccessLayer();
         Data.MapCenter mapCenter = new Data.MapCenter();
         ViewModels.MapViewModel mapViewModel;
-        Data.Category currentCategory;
+        int currentCategoryId;
 
         public MapPage()
         {
             InitializeComponent();
 
+            // Put in padding if iOS
             if (Device.RuntimePlatform == Device.iOS)
                 Padding = new Thickness(0, 20, 0, 0);
 
@@ -31,7 +33,7 @@ namespace MyPlaces.Standard
             };
 
             mapViewModel = new MapViewModel(category);
-            currentCategory = category;
+            currentCategoryId = category.CategoryId;
             BindingContext = mapViewModel;
         }
 
@@ -45,23 +47,50 @@ namespace MyPlaces.Standard
         {
             base.OnAppearing();
 
+            // Check whether the current category ID has been set. Otherwise, set categoryId = 0
+            if (((App)App.Current).CurrentCategoryID != 0)
+            {
+                currentCategoryId = ((App)App.Current).CurrentCategoryID;
+            }
+
+            List<Data.Place> places;
+            places = await GetPlacesList();
+
+            PresentMap(places);
+        }
+
+        /* Here, other pages can provide a category to display in background or at MapView call.
+         * Category 0 provides places of all Categories
+         */
+        public async Task SetMapPinCategoryAsync(int categoryId)
+        {
+            
+            currentCategoryId = categoryId;
+            List<Data.Place> places;
+            places = await GetPlacesList();
+
+            PresentMap(places);
+        }
+
+        public async Task<List<Data.Place>> GetPlacesList()
+        {
             List<Data.Place> places;
 
-            /* We come from the category list page if the current category is dummy.
-             * Otherwise, we come from a specific category places view.
+            /* Here we transition from the category list page if the current category is dummy.
+             * Otherwise, we transition from a specific category places view.
              * In the dummy case, generate list of places of ALL categories.
              * Otherwise, list places of the specific category.
              */
-            if (currentCategory.CategoryId != 0)
+            if (currentCategoryId != 0)
             {
-                places = await dataAccessLayer.GetAllPhotosByCategoryId(currentCategory.CategoryId);
+                places = await dataAccessLayer.GetAllPhotosByCategoryId(currentCategoryId);
             }
             else
             {
                 places = await dataAccessLayer.GetAllPhotos();
             }
 
-            PresentMap(places);
+            return places;
         }
 
         public void PresentMap(List<Data.Place> places)
@@ -87,6 +116,9 @@ namespace MyPlaces.Standard
             // With center coordinates, set the center map point
             Karte.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(centerCoords.CentreLat, centerCoords.CentreLong),
                 Distance.FromMeters(distance)));
+
+
+
 
             // Set the pins
             foreach (var place in places)
