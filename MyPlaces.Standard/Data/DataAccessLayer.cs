@@ -9,7 +9,7 @@ namespace MyPlaces.Standard.Data
 {
     public class DataAccessLayer
     {
-        private static List<Photo> photos = new List<Photo>();
+        private static List<Place> places = new List<Place>();
         private static List<Category> categories = new List<Category>();
 
         protected SQLiteAsyncConnection connection;
@@ -20,8 +20,8 @@ namespace MyPlaces.Standard.Data
 
         static DataAccessLayer()
         {
-            photos.Add(new Photo { PhotoId = 1, CategoryId = 1, Title = "Haus", Description = "Leider nicht meins", Date = DateTime.Parse("2017-10-01"), Latitude = 47.2, Longitude = 8.8 });
-            photos.Add(new Photo { PhotoId = 2, CategoryId = 2, Title = "Schiff", Description = "Leider nicht meins", Date = DateTime.Parse("2017-10-02"), Latitude = 47.3, Longitude = 8.81 });
+            places.Add(new Place { PhotoId = 1, CategoryId = 1, Title = "Haus", Description = "Leider nicht meins", Date = DateTime.Parse("2017-10-01"), Latitude = 47.2, Longitude = 8.8 });
+            places.Add(new Place { PhotoId = 2, CategoryId = 2, Title = "Schiff", Description = "Leider nicht meins", Date = DateTime.Parse("2017-10-02"), Latitude = 47.3, Longitude = 8.81 });
 
             categories.Add(new Category { CategoryId = 1, Name = "Häuser", Color = "#FF0000" });
             categories.Add(new Category { CategoryId = 2, Name = "Schiffe", Color = "#00FF00" });
@@ -37,29 +37,29 @@ namespace MyPlaces.Standard.Data
             using (SQLiteConnection cnn = new SQLiteConnection(Path.Combine(DbFolder, dbFile)))
             {
                 // make sure tables exist
-                cnn.CreateTable<Photo>();
+                cnn.CreateTable<Place>();
                 cnn.CreateTable<Category>();
 
                 // add some test-data if necessary
-                if (!cnn.Table<Photo>().Any())
-                    cnn.InsertAll(photos);
+                if (!cnn.Table<Place>().Any())
+                    cnn.InsertAll(places);
 
                 if (!cnn.Table<Category>().Any())
                     cnn.InsertAll(categories);
             }
         }
 
-        public async Task<List<Photo>> GetAllPhotos()
+        public async Task<List<Place>> GetAllPhotos()
         {
-            return await connection.Table<Photo>().ToListAsync();
+            return await connection.Table<Place>().ToListAsync();
         }
 
-        public async Task<Photo> GetPhotoById(int id)
+        public async Task<Place> GetPhotoById(int id)
         {
-            return await connection.Table<Photo>().Where(photo => photo.PhotoId == id).FirstOrDefaultAsync();
+            return await connection.Table<Place>().Where(photo => photo.PhotoId == id).FirstOrDefaultAsync();
         }
 
-        public async Task AddPhoto(Photo photo)
+        public async Task AddPhoto(Place photo)
         {
             await connection.InsertAsync(photo);
         }

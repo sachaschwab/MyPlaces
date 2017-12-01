@@ -3,7 +3,7 @@ using SQLite;
 
 namespace MyPlaces.Standard.Data
 {
-    public class Photo
+    public class Place
     {
         [PrimaryKey] [AutoIncrement]
         public int PhotoId { get; set; }

@@ -3,7 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="MyPlaces.Standard.NewPhotoPage"
     Title="New Photo">
-    <Label Text="NewPhotoPage"/>
-    <Image x:Name="Foto"/>
-    <Button x:Name="CameraButton" Text="make a picture!"/>
+    <StackLayout>
+        <Label Text="NewPhotoPage"/>
+        <Image x:Name="Foto"/>
+        <Button x:Name="CameraButton" Text="make a picture!"/>
+    </StackLayout>
 </ContentPage>
