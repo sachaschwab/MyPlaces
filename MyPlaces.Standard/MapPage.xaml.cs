@@ -22,7 +22,7 @@ namespace MyPlaces.Standard
             if (Device.RuntimePlatform == Device.iOS)
                 Padding = new Thickness(0, 20, 0, 0);
 
-            // Constructor with dummy category = 0
+            // Category constructor with dummy category = 0
             var category = new Data.Category
             {
                 CategoryId = 0,
@@ -32,7 +32,6 @@ namespace MyPlaces.Standard
 
             mapViewModel = new MapViewModel(category);
             currentCategory = category;
-            Console.WriteLine("Category ID = {0}", currentCategory.CategoryId);
             BindingContext = mapViewModel;
         }
 

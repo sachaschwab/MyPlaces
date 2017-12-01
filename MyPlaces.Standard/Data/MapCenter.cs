@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MyPlaces.Standard.Data
 {
@@ -23,20 +24,11 @@ namespace MyPlaces.Standard.Data
         {
             var extremeCoords = new ExtremeCoords();
 
-            // Extract photo coordinates into an max-iterable form (array)
-            foreach (var place in places)
-            {
-                if (place.Latitude > extremeCoords.BiggestLat) { extremeCoords.BiggestLat = place.Latitude; }
-                if (place.Latitude < extremeCoords.SmallestLat | extremeCoords.SmallestLat == 0)
-                {
-                    extremeCoords.SmallestLat = place.Latitude;
-                }
-                if (place.Longitude > extremeCoords.BiggestLong) { extremeCoords.BiggestLong = place.Longitude; }
-                if (place.Longitude < extremeCoords.SmallestLong | extremeCoords.SmallestLong == 0)
-                {
-                    extremeCoords.SmallestLong = place.Longitude;
-                }
-            }
+            // Extract extreme photo coordinates
+            extremeCoords.SmallestLat = places.Min(p => p.Latitude);
+            extremeCoords.BiggestLat = places.Max(p => p.Latitude);
+            extremeCoords.SmallestLong = places.Min(p => p.Longitude);
+            extremeCoords.BiggestLong = places.Max(p => p.Longitude);
 
             return extremeCoords;
         }
