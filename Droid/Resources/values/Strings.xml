@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="permission_alert_title">Permission is missing!</string>
+	<string name="permission_alert_text">Give me permission please!</string>
+	<string name="permission_alert_button_text">OK</string>
+</resources>

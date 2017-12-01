@@ -2312,8 +2312,26 @@ namespace MyPlaces.Droid
 			// aapt resource value: 0x7f020053
 			public const int avd_hide_password = 2130837587;
 			
+			// aapt resource value: 0x7f020123
+			public const int avd_hide_password_1 = 2130837795;
+			
+			// aapt resource value: 0x7f020124
+			public const int avd_hide_password_2 = 2130837796;
+			
+			// aapt resource value: 0x7f020125
+			public const int avd_hide_password_3 = 2130837797;
+			
 			// aapt resource value: 0x7f020054
 			public const int avd_show_password = 2130837588;
+			
+			// aapt resource value: 0x7f020126
+			public const int avd_show_password_1 = 2130837798;
+			
+			// aapt resource value: 0x7f020127
+			public const int avd_show_password_2 = 2130837799;
+			
+			// aapt resource value: 0x7f020128
+			public const int avd_show_password_3 = 2130837800;
 			
 			// aapt resource value: 0x7f020055
 			public const int common_full_open_on_phone = 2130837589;
@@ -4053,6 +4071,15 @@ namespace MyPlaces.Droid
 			
 			// aapt resource value: 0x7f09004e
 			public const int path_password_strike_through = 2131296334;
+			
+			// aapt resource value: 0x7f090051
+			public const int permission_alert_button_text = 2131296337;
+			
+			// aapt resource value: 0x7f090050
+			public const int permission_alert_text = 2131296336;
+			
+			// aapt resource value: 0x7f09004f
+			public const int permission_alert_title = 2131296335;
 			
 			// aapt resource value: 0x7f090039
 			public const int search_menu_title = 2131296313;

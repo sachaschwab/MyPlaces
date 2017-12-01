@@ -15,6 +15,8 @@ namespace MyPlaces
 
         public static IPhotoUtility PhotoUtility { get; set; }
 
+        public static bool LocationPermission = false;
+
         protected override void OnStart()
         {
             // Handle when your app starts
