@@ -19,6 +19,8 @@ namespace MyPlaces.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
+            App.PhotoUtility = new PhotoUtility_droid();
+
             DataAccessLayer.DbFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
 
             base.OnCreate(bundle);

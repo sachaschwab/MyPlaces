@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="MyPlaces.Standard.MainPage"
+    x:Class="MyPlaces.Standard.PlacesListNavPage"
     xmlns:local="clr-namespace:MyPlaces.Standard">
-    <local:CategoryListPage BindingContext="{Binding CategoryListViewModel}"/>
     <local:PlacesListPage/>
     <local:MapPage/>
     <local:NewPhotoPage/>

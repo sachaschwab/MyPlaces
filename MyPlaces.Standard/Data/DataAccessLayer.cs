@@ -56,6 +56,11 @@ namespace MyPlaces.Standard.Data
             return await connection.Table<Place>().ToListAsync();
         }
 
+        public async Task<List<Place>> GetAllPhotosByCategoryId(int categoryId)
+        {
+            return await connection.Table<Place>().Where(photo => photo.CategoryId == categoryId).ToListAsync();
+        }
+
         public async Task<Place> GetPhotoById(int id)
         {
             return await connection.Table<Place>().Where(photo => photo.PhotoId == id).FirstOrDefaultAsync();
