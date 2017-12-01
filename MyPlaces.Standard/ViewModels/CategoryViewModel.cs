@@ -20,7 +20,7 @@ namespace MyPlaces.Standard.ViewModels
                 if (editCommand == null)
                 {
                     editCommand = new Command(() => {
-                        MessagingCenter.Send<object, Category>(this, "EDIT_CATEGORY", Category);
+                        MessagingCenter.Send<object, Category>(this, MessageNames.EDIT_CATEGORY, Category);
                     });
                 }
                 return editCommand;

@@ -13,7 +13,7 @@ namespace MyPlaces.Standard
             if (Device.RuntimePlatform == Device.iOS)
                 Padding = new Thickness(0, 20, 0, 0);
 
-            MessagingCenter.Subscribe<object, Category>(this, "EDIT_CATEGORY", (sender, cat) => EditControl.IsVisible = true);
+            MessagingCenter.Subscribe<object, Category>(this, MessageNames.EDIT_CATEGORY, (sender, cat) => EditControl.IsVisible = true);
         }
 
         //void Edit_Clicked(object sender, System.EventArgs e)
