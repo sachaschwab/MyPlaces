@@ -188,6 +188,7 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
     <AndroidResource Include="Resources\xml\file_paths.xml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="Resources\drawable\AddButton.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\xml\" />
