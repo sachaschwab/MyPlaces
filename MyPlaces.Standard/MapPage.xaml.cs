@@ -48,9 +48,9 @@ namespace MyPlaces.Standard
             base.OnAppearing();
 
             // Check whether the current category ID has been set. Otherwise, set categoryId = 0
-            if (((App)App.Current).CurrentCategoryID != 0)
+            if (((App)App.Current).CurrentCategoryID.HasValue)
             {
-                currentCategoryId = ((App)App.Current).CurrentCategoryID;
+                currentCategoryId = ((App)App.Current).CurrentCategoryID.Value; 
             }
 
             List<Data.Place> places;

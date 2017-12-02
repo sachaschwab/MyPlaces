@@ -16,7 +16,11 @@ namespace MyPlaces
 
         public static IPhotoUtility PhotoUtility { get; set; }
 
-        public int CurrentCategoryID { get; set; }
+        /// <summary>Null means, there is no category selected.</summary>
+        public int? CurrentCategoryID { get; set; }
+
+        /// <summary>Null means, there is no selected place.</summary>
+        public int? SelectedPlaceId { get; set; }
 
         public static bool LocationPermission = false;
 
