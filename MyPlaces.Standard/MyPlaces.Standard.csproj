@@ -22,5 +22,6 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="MockImages\" />
   </ItemGroup>
 </Project>

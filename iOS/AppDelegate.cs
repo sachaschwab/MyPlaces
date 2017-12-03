@@ -23,6 +23,10 @@ namespace MyPlaces.iOS
             testImage.AsJPEG().Save(imgPath, false);
             App.PhotoUtility.GenerateThumbnail(imgPath, 100);
 
+
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+
             global::Xamarin.Forms.Forms.Init();
             Xamarin.FormsMaps.Init(); 
 

@@ -30,7 +30,13 @@ namespace MyPlaces.Standard.ViewModels
             try
             {
                 Places.Clear();
-                var places = await dataAccessLayer.GetAllPhotosByCategoryId(1);
+
+                // Get category ID eventually selected from 
+                var categoryId = ((App)App.Current).CurrentCategoryID ?? 0;
+                // TODO: Erase this dummy once Doiminik has implemented shift from Categories list page
+                categoryId = 1;
+                var places = await dataAccessLayer.GetAllPhotosByCategoryId(categoryId);
+
 
                 foreach (var place in places)
                 {

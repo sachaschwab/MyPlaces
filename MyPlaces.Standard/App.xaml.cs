@@ -18,6 +18,7 @@ namespace MyPlaces
 
         /// <summary>Null means, there is no category selected.</summary>
         public int? CurrentCategoryID { get; set; }
+        public string CurrentImagePath { get; set; }
 
         /// <summary>Null means, there is no selected place.</summary>
         public int? SelectedPlaceId { get; set; }
