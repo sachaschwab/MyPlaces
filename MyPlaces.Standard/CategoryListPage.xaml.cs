@@ -29,7 +29,7 @@ namespace MyPlaces.Standard
         void Handle_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
         {
             Category category = ((CategoryViewModel)e.Item).Category;
-            ((App)App.Current).CurrentCategoryID = category.CategoryId;
+            ((App)App.Current).SelectedCategory = category;// CurrentCategoryID = category.CategoryId;
             MainPage mainPage = (MainPage)App.Current.MainPage;
             PlacesListPage placesListPage = mainPage.Children.OfType<PlacesListPage>().Single();
             placesListPage.Title = category.Name;

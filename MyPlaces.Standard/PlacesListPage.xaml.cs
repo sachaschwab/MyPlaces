@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using MyPlaces.Standard.Data;
 using Xamarin.Forms;
 
 namespace MyPlaces.Standard
@@ -77,7 +77,7 @@ namespace MyPlaces.Standard
                 Console.WriteLine("Selected index = {0}", CategoryPicker.SelectedIndex);
                 // Refresh the model with the newly chosen category
 
-                ((App)App.Current).CurrentCategoryID = CategoryPicker.SelectedIndex + 1;
+                ((App)App.Current).SelectedCategory = (Category)CategoryPicker.SelectedItem;
                 BindingContext = viewModel = new ViewModels.PlacesViewModel();
                 //viewModel.LoadPlacesCommand.CanExecuteChanged;
             };

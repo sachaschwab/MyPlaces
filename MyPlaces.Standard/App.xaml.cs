@@ -1,4 +1,5 @@
-﻿using MyPlaces.Standard;
+﻿using System;
+using MyPlaces.Standard;
 using MyPlaces.Standard.Data;
 using MyPlaces.Standard.ViewModels;
 using Xamarin.Forms;
@@ -16,11 +17,14 @@ namespace MyPlaces
 
         public static IPhotoUtility PhotoUtility { get; set; }
 
-        /// <summary>Null means, there is no category selected.</summary>
-        public int? CurrentCategoryID { get; set; }
+        /// <summary>Deprecated, please use SelectedCategory</summary>
+        //[Obsolete]
+        //public int? CurrentCategoryID { get; set; }
 
         /// <summary>Null means, there is no selected place.</summary>
         public int? SelectedPlaceId { get; set; }
+
+        public Category SelectedCategory { get; set; }
 
         public IPermission Permissions { get; set; }
 

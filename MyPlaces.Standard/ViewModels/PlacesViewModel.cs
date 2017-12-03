@@ -33,7 +33,7 @@ namespace MyPlaces.Standard.ViewModels
 
                 // Get category ID eventually selected from CategoriesList
                 // TODO: Erase this dummy once Doiminik has implemented shift from Categories list page
-                var categoryId = ((App)App.Current).CurrentCategoryID ?? 1;
+                var categoryId = ((App)App.Current).SelectedCategory?.CategoryId ?? 1;
 
                 var places = await dataAccessLayer.GetAllPhotosByCategoryId(categoryId);
 
