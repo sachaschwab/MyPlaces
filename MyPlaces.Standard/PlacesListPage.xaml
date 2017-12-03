@@ -20,9 +20,9 @@
                 HorizontalOptions="FillAndExpand"
                 TextColor="Black"
                 FontSize="20"
-                Font="Bold,20"               
+                Font="Bold,15"               
                 BackgroundColor="#eeeeee"
-                Text="All Categories"
+                Text="Please select a category"
                 HeightRequest="50"/>
             
             <ListView x:Name="PlacesListView" 

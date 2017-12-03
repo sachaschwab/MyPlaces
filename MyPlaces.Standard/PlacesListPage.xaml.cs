@@ -16,8 +16,7 @@ namespace MyPlaces.Standard
         {
             InitializeComponent();
             // TODO: Dummy => get Category Name from Transition from Category List Page
-            Title = "Häuser";
-
+            Title = " ";
             // Put in padding if iOS
             if (Device.RuntimePlatform == Device.iOS)
                 Padding = new Thickness(0, 20, 0, 0);
@@ -28,13 +27,16 @@ namespace MyPlaces.Standard
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            // Refresh context upon returning to the page from categories list page
             BindingContext = viewModel = new ViewModels.PlacesViewModel();
             if (viewModel.Places.Count == 0)
                 viewModel.LoadPlacesCommand.Execute(null);
             
             // TODO: Decide whehter to keep the Button bar & picker feature. otherwise, erase these two lines
-            CategoryButton.IsVisible = false;
+            CategoryButton.IsVisible = true;
             CategoryPicker.IsVisible = false;
+
+            CategoryButton.Text = Title;
         }
 
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
