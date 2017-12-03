@@ -31,10 +31,12 @@ namespace MyPlaces.Standard
                 viewModel.LoadPlacesCommand.Execute(null);
         }
 
-        private void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
+            
             // Place details from selection
             var place = args.SelectedItem as Data.Place;
+            //await DisplayAlert("File Location", place.Path, "OK");
             if (place != null)
             {
                 // Provide selected place ID to App "dispatch".

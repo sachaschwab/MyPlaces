@@ -18,7 +18,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="10" Orientation="Horizontal">
-                                <Image Source="{Binding Path}" />
+                                <Image Source="{Binding Path}"/>
                                 <Label Text="{Binding Title}" 
                                 LineBreakMode="NoWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 

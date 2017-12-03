@@ -37,7 +37,6 @@ namespace MyPlaces.Standard.ViewModels
                 categoryId = 1;
                 var places = await dataAccessLayer.GetAllPhotosByCategoryId(categoryId);
 
-
                 foreach (var place in places)
                 {
                     Places.Add(place);
