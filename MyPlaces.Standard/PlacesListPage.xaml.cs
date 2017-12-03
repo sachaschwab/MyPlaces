@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
@@ -9,18 +10,22 @@ namespace MyPlaces.Standard
     {
         ViewModels.PlacesViewModel viewModel;
         MapPage mapPage = new MapPage();
+        private Data.DataAccessLayer AccessLayer = new Data.DataAccessLayer();
+
 
         public PlacesListPage()
         {
             InitializeComponent();
-
-            Title = "Places";
+            // TODO: Dummy => get Category Name from Transition from Category List Page
+            Title = "Häuser";
 
             // Put in padding if iOS
             if (Device.RuntimePlatform == Device.iOS)
                 Padding = new Thickness(0, 20, 0, 0);
 
             BindingContext = viewModel = new ViewModels.PlacesViewModel();
+
+             
         }
 
         protected override void OnAppearing()
@@ -29,27 +34,59 @@ namespace MyPlaces.Standard
 
             if (viewModel.Places.Count == 0)
                 viewModel.LoadPlacesCommand.Execute(null);
+
+            // TODO: => Get category ID from transition from selected category in Category List Page
+            var categoryId = 1;
+            ((App)App.Current).CurrentCategoryID = categoryId;
+
+            CategoryButton.Text = ((App)App.Current).CurrentCategoryName;
         }
 
-        private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        private void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            
-            // Place details from selection
             var place = args.SelectedItem as Data.Place;
-            //await DisplayAlert("File Location", place.Path, "OK");
-            if (place != null)
-            {
-                // Provide selected place ID to App "dispatch".
-                ((App)App.Current).SelectedPlaceId = place.PhotoId;
-
-                // Switch to New Place page
-                var mainPage = this.Parent as TabbedPage;
-                var newPhotoPage = mainPage.Children[3];
-                mainPage.CurrentPage = newPhotoPage;
-            }
-            else 
+            if (place == null)
                 return;
-            
+            // Provide selected place ID to App "dispatch".
+            ((App)App.Current).SelectedPlaceId = place.PhotoId; 
+
+            var mainPage = this.Parent as TabbedPage;
+            var newPhotoPage = mainPage.Children[3];
+            mainPage.CurrentPage = newPhotoPage; 
         }
+
+        void OnButtonClicked(object sender, EventArgs args)
+        {
+            CategoryPicker.IsVisible = false;
+            CategoryButton.IsVisible = true;
+            GetCategoryData();
+            CategoryPicker.Focus();
+        }
+
+        private async Task GetCategoryData()
+        {
+            List<Data.Category> categories = await AccessLayer.GetAllCategories();
+
+            CategoryPicker.ItemsSource = categories;
+            CategoryPicker.ItemDisplayBinding = new Binding("Name");
+            CategoryPicker.SelectedIndex = 0;
+
+            CategoryPicker.Unfocused += (sender, args) =>
+            {
+                CategoryButton.Text = CategoryPicker.Items[CategoryPicker.SelectedIndex];
+                //CategoryButton.Text = CategoryPicker.SelectedIndex.ToString();
+                Console.WriteLine("Selected index = {0}", CategoryPicker.SelectedIndex);
+                // Refresh the model with the newly chosen category
+
+                ((App)App.Current).CurrentCategoryID = CategoryPicker.SelectedIndex + 1;
+                BindingContext = viewModel = new ViewModels.PlacesViewModel();
+                //viewModel.LoadPlacesCommand.CanExecuteChanged;
+            };
+
+
+
+        }
+
+
     }
 }

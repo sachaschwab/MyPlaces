@@ -35,6 +35,8 @@ namespace MyPlaces.Standard
         void Handle_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
         {
             var x = 1;
+            //TODO: Provide tapped item's category Name replacing "Test" below
+            ((App)App.Current).CurrentCategoryName = "Test"; 
         }
     }
 }
