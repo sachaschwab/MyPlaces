@@ -11,6 +11,7 @@ using MyPlaces.Standard.Data;
 using Android;
 using MyPlaces.Standard;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace MyPlaces.Droid
 {
@@ -47,23 +48,12 @@ namespace MyPlaces.Droid
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
+            if (!grantResults.Any())
+                return;
             if (requestCode == LOCATION_PERMISSION_REQUEST)
             {
                 localPermissionTCS.SetResult(grantResults[0] == Permission.Granted);
             }
-
-
-
-            //if (requestCode != 1)
-            //    return;
-
-            //if (grantResults[0] == Permission.Denied)
-            //{
-            //    App.LocationPermission = false;
-            //}else{
-            //    App.LocationPermission = true;
-            //}
-                
         }
 
         private TaskCompletionSource<bool> localPermissionTCS;

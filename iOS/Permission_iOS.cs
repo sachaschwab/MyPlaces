@@ -14,7 +14,8 @@ namespace MyPlaces.iOS
         {
             locManager = new CLLocationManager();
             locManager.AuthorizationChanged += (sender, e) => {
-                locationPermissionTCS?.SetResult(HasLocationPermission);
+                if (locationPermissionTCS.Task.Status != TaskStatus.RanToCompletion)
+                    locationPermissionTCS?.SetResult(HasLocationPermission);
             };
         }
 
