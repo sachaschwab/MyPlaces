@@ -99,7 +99,7 @@ namespace MyPlaces.Standard.ViewModels
                         {
                             Category.Color = $"#{(int)(color.R * 255):X2}{(int)(color.G * 255):X2}{(int)(Color.B * 255):X2}";
                             DataAccessLayer dal = new DataAccessLayer();
-                            await dal.UpdateCategory(Category);
+                            await dal.InsertOrReplaceCategory(Category);
                             MessagingCenter.Send<object>(this, MessageNames.CATEGORY_EDITED);
                         }
 

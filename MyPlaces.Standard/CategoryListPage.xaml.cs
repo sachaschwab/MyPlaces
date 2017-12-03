@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using MyPlaces.Standard.Data;
+﻿using MyPlaces.Standard.Data;
 using Xamarin.Forms;
 
 namespace MyPlaces.Standard
@@ -16,14 +14,8 @@ namespace MyPlaces.Standard
             MessagingCenter.Subscribe<object, Category>(this, MessageNames.EDIT_CATEGORY, (sender, cat) => EditControl.IsVisible = true);
         }
 
-        //void Edit_Clicked(object sender, System.EventArgs e)
-        //{
-        //    EditControl.IsVisible = true;
-        //}
-
         void Save_Clicked(object sender, System.EventArgs e)
         {
-            // TODO: save changes
             EditControl.IsVisible = false;
         }
 
@@ -34,7 +26,7 @@ namespace MyPlaces.Standard
 
         void Handle_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
         {
-            var x = 1;
+
         }
     }
 }

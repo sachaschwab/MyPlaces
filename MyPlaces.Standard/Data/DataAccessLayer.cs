@@ -86,9 +86,9 @@ namespace MyPlaces.Standard.Data
             await connection.InsertAsync(category);
         }
 
-        public async Task UpdateCategory(Category category)
+        public async Task InsertOrReplaceCategory(Category category)
         {
-            await connection.UpdateAsync(category);
+            await connection.InsertOrReplaceAsync(category);
         }
     }
 }
