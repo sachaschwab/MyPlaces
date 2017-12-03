@@ -4,7 +4,27 @@
     x:Class="MyPlaces.Standard.PlacesListPage"
     Title="Category">
 	<ContentPage.Content>
-        <StackLayout>
+        <StackLayout
+            Orientation="Vertical">
+            <Picker 
+                x:Name="CategoryPicker" 
+                IsVisible="false"
+                BackgroundColor="#eeeeee"
+                TextColor="Black"
+                HeightRequest="50"      
+            />
+            <Button 
+                x:Name="CategoryButton"
+                Clicked="OnButtonClicked"
+                Margin="0,20,0,0"
+                HorizontalOptions="FillAndExpand"
+                TextColor="Black"
+                FontSize="20"
+                Font="Bold,20"               
+                BackgroundColor="#eeeeee"
+                Text="All Categories"
+                HeightRequest="50"/>
+            
             <ListView x:Name="PlacesListView" 
                 ItemsSource="{Binding Places}" 
                 VerticalOptions="FillAndExpand" 
@@ -17,13 +37,16 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10">
+                            <StackLayout Margin="0,20,0,0" Padding="10" Orientation="Horizontal" >
+                                <Image Source="{Binding Path}"
+                                Aspect="AspectFit"
+                                />
                                 <Label Text="{Binding Title}" 
                                 LineBreakMode="NoWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 
                                 FontSize="16" />
                                 <Label Text="{Binding Description}" 
-                                LineBreakMode="NoWrap" 
+                                HorizontalOptions="EndAndExpand"
                                 Style="{DynamicResource ListItemDetailTextStyle}" 
                                 FontSize="12" />
                             </StackLayout>

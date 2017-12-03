@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
@@ -9,6 +10,7 @@ namespace MyPlaces.Standard
     {
         ViewModels.PlacesViewModel viewModel;
         MapPage mapPage = new MapPage();
+        private Data.DataAccessLayer AccessLayer = new Data.DataAccessLayer();
 
         public PlacesListPage()
         {
@@ -26,21 +28,57 @@ namespace MyPlaces.Standard
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
+            BindingContext = viewModel = new ViewModels.PlacesViewModel();
             if (viewModel.Places.Count == 0)
                 viewModel.LoadPlacesCommand.Execute(null);
-
-            // TODO: => Get category ID from transition from selected category in Category List Page
-            var categoryId = 1;
-            ((App)App.Current).CurrentCategoryID = categoryId;
+            
+            // TODO: Decide whehter to keep the Button bar & picker feature. otherwise, erase these two lines
+            CategoryButton.IsVisible = false;
+            CategoryPicker.IsVisible = false;
         }
 
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
+            
             var place = args.SelectedItem as Data.Place;
             if (place == null)
                 return;
             
+            // Provide selected place ID to App "dispatch".
+            ((App)App.Current).SelectedPlaceId = place.PhotoId; 
+
+            var mainPage = this.Parent as TabbedPage;
+            var newPhotoPage = mainPage.Children[3];
+            mainPage.CurrentPage = newPhotoPage; 
+        }
+
+        void OnButtonClicked(object sender, EventArgs args)
+        {
+            //CategoryPicker.IsVisible = false;
+            //CategoryButton.IsVisible = true;
+            //GetCategoryData();
+            //CategoryPicker.Focus();
+        }
+
+        private async Task GetCategoryData()
+        {
+            List<Data.Category> categories = await AccessLayer.GetAllCategories();
+
+            CategoryPicker.ItemsSource = categories;
+            CategoryPicker.ItemDisplayBinding = new Binding("Name");
+            CategoryPicker.SelectedIndex = 0;
+
+            CategoryPicker.Unfocused += (sender, args) =>
+            {
+                CategoryButton.Text = CategoryPicker.Items[CategoryPicker.SelectedIndex];
+                //CategoryButton.Text = CategoryPicker.SelectedIndex.ToString();
+                Console.WriteLine("Selected index = {0}", CategoryPicker.SelectedIndex);
+                // Refresh the model with the newly chosen category
+
+                ((App)App.Current).CurrentCategoryID = CategoryPicker.SelectedIndex + 1;
+                BindingContext = viewModel = new ViewModels.PlacesViewModel();
+                //viewModel.LoadPlacesCommand.CanExecuteChanged;
+            };
         }
     }
 }
