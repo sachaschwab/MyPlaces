@@ -9,7 +9,7 @@
         <Label Text="MyPlaces Map Page"/>
         <maps:Map x:Name="Karte" MapType="Street" 
               VerticalOptions="FillAndExpand" 
-              IsShowingUser="true">
+              IsShowingUser="false">
         </maps:Map>
     </StackLayout>
     

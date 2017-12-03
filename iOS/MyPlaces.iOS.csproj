@@ -147,6 +147,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="PhotoUtility_iOS.cs" />
+    <Compile Include="Permission_iOS.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\TestImage.png" />

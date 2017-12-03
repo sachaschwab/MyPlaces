@@ -1,5 +1,7 @@
 ﻿using MyPlaces.Standard.Data;
 using Xamarin.Forms;
+using System.Linq;
+using MyPlaces.Standard.ViewModels;
 
 namespace MyPlaces.Standard
 {
@@ -26,7 +28,12 @@ namespace MyPlaces.Standard
 
         void Handle_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
         {
-
+            Category category = ((CategoryViewModel)e.Item).Category;
+            ((App)App.Current).CurrentCategoryID = category.CategoryId;
+            MainPage mainPage = (MainPage)App.Current.MainPage;
+            PlacesListPage placesListPage = mainPage.Children.OfType<PlacesListPage>().Single();
+            placesListPage.Title = category.Name;
+            mainPage.CurrentPage = placesListPage;
         }
     }
 }

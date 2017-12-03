@@ -9,12 +9,19 @@ using Android.Widget;
 using Android.OS;
 using MyPlaces.Standard.Data;
 using Android;
+using MyPlaces.Standard;
+using System.Threading.Tasks;
 
 namespace MyPlaces.Droid
 {
     [Activity(Label = "MyPlaces.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, IPermission
     {
+        private int LOCATION_PERMISSION_REQUEST = 1;
+        private int CAMERA_PERMSISSION_REQUEST = 2;
+
+        public bool HasLocationPermission => CheckSelfPermission(Manifest.Permission.AccessFineLocation) == Permission.Granted;
+
         protected override void OnCreate(Bundle bundle)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -22,14 +29,15 @@ namespace MyPlaces.Droid
 
             App.PhotoUtility = new PhotoUtility_droid();
 
+
             DataAccessLayer.DbFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
 
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            
 
             LoadApplication(new App());
+            ((App)App.Current).Permissions = this;
         }
 
         public void RequestLocationPermission()
@@ -39,16 +47,31 @@ namespace MyPlaces.Droid
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
-            if (requestCode != 1)
-                return;
-
-            if (grantResults[0] == Permission.Denied)
+            if (requestCode == LOCATION_PERMISSION_REQUEST)
             {
-                App.LocationPermission = false;
-            }else{
-                App.LocationPermission = true;
+                localPermissionTCS.SetResult(grantResults[0] == Permission.Granted);
             }
+
+
+
+            //if (requestCode != 1)
+            //    return;
+
+            //if (grantResults[0] == Permission.Denied)
+            //{
+            //    App.LocationPermission = false;
+            //}else{
+            //    App.LocationPermission = true;
+            //}
                 
+        }
+
+        private TaskCompletionSource<bool> localPermissionTCS;
+        Task<bool> IPermission.RequestLocationPermission()
+        {
+            RequestPermissions(new string[] { Manifest.Permission.AccessFineLocation }, 1);
+            localPermissionTCS = new TaskCompletionSource<bool>();
+            return localPermissionTCS.Task;
         }
     }
 }

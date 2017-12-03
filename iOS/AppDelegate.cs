@@ -28,6 +28,8 @@ namespace MyPlaces.iOS
 
             LoadApplication(new App());
 
+            ((App)App.Current).Permissions = new Permission_iOS();
+
             return base.FinishedLaunching(app, options);
         }
     }

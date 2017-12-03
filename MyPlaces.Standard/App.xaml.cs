@@ -22,11 +22,14 @@ namespace MyPlaces
         /// <summary>Null means, there is no selected place.</summary>
         public int? SelectedPlaceId { get; set; }
 
+        public IPermission Permissions { get; set; }
+
         public static bool LocationPermission = false;
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            if (Permissions.HasLocationPermission)
+                Permissions.RequestLocationPermission();
         }
 
         protected override void OnSleep()
