@@ -16,14 +16,8 @@ namespace MyPlaces.Droid
             Bitmap bitmap = BitmapFactory.DecodeFile(path);
             double factor = (double)maxSideLength / new int[] { bitmap.Height, bitmap.Width }.Max();;
             Bitmap bitmapScaled = null;
-            try
-            {
-                bitmapScaled = Bitmap.CreateScaledBitmap(bitmap, (int)(bitmap.Width * factor), (int)(bitmap.Height * factor), false);
-            }
-            catch (Exception ex)
-            {
-                var x = 1;
-            }
+
+            bitmapScaled = Bitmap.CreateScaledBitmap(bitmap, (int)(bitmap.Width * factor), (int)(bitmap.Height * factor), false);
 
             string extension = System.IO.Path.GetExtension(path);
             string thumbNailPath = path.Substring(0, path.Length - extension.Length) + ".thumb" + extension;

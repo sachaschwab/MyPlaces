@@ -4,8 +4,7 @@ using System.Threading.Tasks;
 using MyPlaces.Standard.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
-
-
+using System.Linq;
 
 namespace MyPlaces.Standard
 {
@@ -121,7 +120,7 @@ namespace MyPlaces.Standard
 
 
             // Set the pins
-            foreach (var place in places)
+            foreach (var place in places.Where(p => p.Latitude != 0 && p.Longitude != 0))
             {
                 var pin = GetPin(place);
                 Karte.Pins.Add(pin);

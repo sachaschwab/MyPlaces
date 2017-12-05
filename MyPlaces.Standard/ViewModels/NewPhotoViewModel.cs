@@ -176,7 +176,7 @@ namespace MyPlaces.Standard.ViewModels
             {
                 //Directory = "Sample",
                 Name = "myPlace_" + DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds.ToString() + ".jpg",
-                CustomPhotoSize = 30
+                CustomPhotoSize = 50
             });
 
             if (file == null) return;
@@ -192,8 +192,6 @@ namespace MyPlaces.Standard.ViewModels
                 return stream;
             });
 
-            GetLocationAsync();
-            SetDateTime();
         }
 
 
@@ -203,27 +201,31 @@ namespace MyPlaces.Standard.ViewModels
             newPlace.Path = ImagePath;
             newPlace.Title = Title;
             newPlace.Description = Comment;
-            newPlace.Date = ImageDateTime;
+            newPlace.Date = DateTime.Now;
             newPlace.CategoryId = SelectedItem.CategoryId;
 
-            var position = await GetLocationAsync();
-            if (position != null)
+            IPermission permissions = ((App)App.Current).Permissions;
+
+            bool saveLocation = permissions.HasLocationPermission;
+            if (!saveLocation)
             {
-				newPlace.Latitude = position.Latitude;
-                newPlace.Longitude = position.Longitude;
+                saveLocation = await permissions.RequestLocationPermission();
             }
-            
+            if (saveLocation)
+            {
+                var position = await GetLocationAsync();
+                if (position != null)
+                {
+                    newPlace.Latitude = position.Latitude;
+                    newPlace.Longitude = position.Longitude;
+                }
+            }
 
             App.PhotoUtility.GenerateThumbnail(_imagePath, 100);
 
             await _accessLayer.AddPlace(newPlace);
 
             IsEditable = false;
-        }
-
-        private void SetDateTime()
-        {
-            ImageDateTime = DateTime.Now;
         }
 
         protected async Task<Position> GetLocationAsync()
