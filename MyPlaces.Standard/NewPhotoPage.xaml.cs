@@ -8,129 +8,130 @@ using Plugin.Media;
 
 using MyPlaces.Standard.Data;
 using System.Linq;
-
+using MyPlaces.Standard.ViewModels;
 
 namespace MyPlaces.Standard
 {
     public partial class NewPhotoPage : ContentPage
     {
-        private bool isEditable = true;// false
+        //private string _imagePath;
+        //private DateTime _dateTime;
 
-        private DataAccessLayer AccessLayer = new DataAccessLayer();
+        //private DataAccessLayer AccessLayer = new DataAccessLayer();
 
         public NewPhotoPage()
         {
             InitializeComponent();
 
-            // for testing only!!!!
-            SetEditable(isEditable);
+            this.BindingContext = new NewPhotoViewModel();
 
             if (Device.RuntimePlatform == Device.iOS)
                 Padding = new Thickness(0, 20, 0, 0);
 
-            CameraButton.Clicked += TakeAPictureAsync;
-            SaveButton.Clicked += SavePlace;
+            //CameraButton.Clicked += TakeAPictureAsync;
+            //SaveButton.Clicked += SavePlace;
         }
 
-        public NewPhotoPage(bool EditState)
-        {
-            InitializeComponent();
+        //private async void TakeAPictureAsync(object sender, EventArgs e)
+        //{
+        //    await CrossMedia.Current.Initialize();
 
-            isEditable = EditState;
+        //    if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+        //    {
+        //        await DisplayAlert("No Camera", ":( No camera available.", "OK");
+        //        return;
+        //    }
 
-            SetEditable(isEditable);
-        }
+        //    var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+        //    {
+        //        //Directory = "Sample",
+        //        Name = "test.jpg"
+        //    });
 
-        private async void TakeAPictureAsync(object sender, EventArgs e)
-        {
-            await CrossMedia.Current.Initialize();
+        //    if (file == null) return;
 
-            if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
-            {
-                await DisplayAlert("No Camera", ":( No camera available.", "OK");
-                return;
-            }
+        //    _imagePath = file.Path;
+        //    //await DisplayAlert("File Location", file.Path, "OK");
 
-            var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
-            {
-                //Directory = "Sample",
-                Name = "test.jpg"
-            });
+        //    var image = ImageSource.FromStream(() =>
+        //    {
+        //        var stream = file.GetStream();
+        //        file.Dispose();
+        //        return stream;
+        //    });
 
-            if (file == null) return;
+        //    DisplayImage(image);
+        //    GetLocation();
+        //    SetDateTime();
+        //}
 
-            await DisplayAlert("File Location", file.Path, "OK");
+        //private async void SavePlace(object sender, EventArgs e)
+        //{
+        //    Place newPlace = new Place();
+        //    newPlace.Path = _imagePath;
+        //    newPlace.Title = TitleText.Text;
+        //    newPlace.Description = DescriptionText.Text;
+        //    newPlace.Date = _dateTime;
+        //    newPlace.CategoryId = ((Category)CategoryPicker.SelectedItem).CategoryId;
+        //    //newPlace.Latitude = ;
+        //    //newPlace.Longitude = ;
 
-            var image = ImageSource.FromStream(() =>
-            {
-                var stream = file.GetStream();
-                file.Dispose();
-                return stream;
-            });
+        //    App.PhotoUtility.GenerateThumbnail(_imagePath, 50);
 
-            DisplayImage(image);
-            GetLocation();
-            SetDateTime();
-        }
+        //    await AccessLayer.AddPlace(newPlace);
+        //}
 
-        private void SavePlace(object sender, EventArgs e)
-        {
-            Place NewPlace = new Place();
+        //private void DisplayImage(ImageSource imageSource)
+        //{
+        //    Foto.Source = imageSource;
+        //}
 
-        }
+        //private void SetDateTime()
+        //{
+        //    _dateTime = DateTime.Now;
+        //    DateTimeLabel.Text = _dateTime.ToString();
+        //}
 
-        private void DisplayImage(ImageSource imageSource)
-        {
-            Foto.Source = imageSource;
+        //private void SetEditable(bool editable)
+        //{
+        //    if (editable)
+        //    {
+        //        CameraButton.IsVisible = true;
+        //        TitleText.IsEnabled = true;
+        //        DescriptionText.IsEnabled = true;
+        //        CategoryPicker.IsVisible = true;
+        //        CategoryLabel.IsVisible = false;
+        //        SaveButton.IsVisible = true;
 
+        //        //GetCategoryData();
+        //    }
+        //    else
+        //    {
+        //        CameraButton.IsVisible = false;
+        //        TitleText.IsEnabled = false;
+        //        DescriptionText.IsEnabled = false;
+        //        CategoryPicker.IsVisible = false;
+        //        CategoryLabel.IsVisible = true;
+        //        SaveButton.IsVisible = false;
+        //    }
+        //}
 
-        }
+        //private async Task GetCategoryData()
+        //{
+        //    List<Category> categories = await AccessLayer.GetAllCategories();
 
-        private void SetDateTime()
-        {
-            DateTimeLabel.Text = DateTime.Now.ToString();
-        }
+        //    CategoryPicker.ItemsSource = categories;
+        //    CategoryPicker.ItemDisplayBinding = new Binding("Name");
+        //    CategoryPicker.SelectedIndex = 1;
+        //}
 
-        private void SetEditable(bool editable)
-        {
-            if (editable)
-            {
-                CameraButton.IsVisible = true;
-                TitleText.IsEnabled = true;
-                NoteText.IsEnabled = true;
-                CategoryPicker.IsVisible = true;
-                CategoryLabel.IsVisible = false;
-                SaveButton.IsVisible = true;
-
-                GetCategoryData();
-            }
-            else
-            {
-                CameraButton.IsVisible = false;
-                TitleText.IsEnabled = false;
-                NoteText.IsEnabled = false;
-                CategoryPicker.IsVisible = false;
-                CategoryLabel.IsVisible = true;
-                SaveButton.IsVisible = false;
-            }
-        }
-
-        private async Task GetCategoryData()
-        {
-            List<Category> categories = await AccessLayer.GetAllCategories();
-
-            CategoryPicker.ItemsSource = categories;
-            CategoryPicker.ItemDisplayBinding = new Binding("Name");
-            CategoryPicker.SelectedIndex = 1;
-        }
-
-        private async Task GetLocation()
-        {
-            if(App.LocationPermission)
-            {
+        //private async Task GetLocation()
+        //{
+        //    if(App.LocationPermission)
+        //    {
                 
-            }
-        }
+        //    }
+        //}
 
     }
 }

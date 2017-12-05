@@ -5,34 +5,56 @@
     Title="New Photo">
     <ScrollView>
         <StackLayout>
+            
             <Label Text="NewPhotoPage"/>
+            
             <Button x:Name="CameraButton" 
-                    Text="take a picture!"/>
+                    Text="take a picture!"
+                    Command="{Binding TakeAPictureCommand}"
+                    IsVisible="{Binding IsEditable}"/>
+            
             <Image x:Name="Foto" 
                     WidthRequest="200"
                     MinimumWidthRequest="200"
                     HeightRequest="200"
                     MinimumHeightRequest="200"
                     BackgroundColor="Silver"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="Center"
+                    >
+                <Image.Source>
+                    <FileImageSource File="{Binding ImagePath}"/>
+                </Image.Source>
+            </Image>
+            <!--IsEnabled="{Binding FileExists}"-->
+            <!--IsVisible="{Binding FileExists}"-->
+            
             <Label x:Name="DateTimeLabel" 
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="Center"
+                    Text="{Binding ImageDateTime.toString()}" />
+            
             <Button x:Name="MapButten" 
                     Text="show on map"/>
+            
             <Entry x:Name="TitleText" 
-                    Placeholder="Title" 
-                    IsEnabled="false"/>
-            <Editor x:Name="NoteText"
+                    Placeholder="Title"
+                    Text="{Binding Title}"
+                    IsEnabled="{Binding IsEditable}"/>
+            
+            <Editor x:Name="DescriptionText"
                     HeightRequest="200"
                     MinimumHeightRequest="200"
-                    IsEnabled="false"/>
+                    IsEnabled="{Binding IsEditable}"/>
+            
             <Picker x:Name="CategoryPicker" 
-                    IsVisible="false"/>
-            <Label x:Name="CategoryLabel" 
-                    IsVisible="false"/>
+                    ItemsSource="{Binding Categories }"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedIndex="{Binding SelectedIndex}"/>
+            
             <Button x:Name="SaveButton" 
                     Text="SAVE"
-                    IsVisible="false"/>
+                    IsVisible="{Binding IsEditable}"
+                    Command="{Binding SaveCommand}"/>
+            
         </StackLayout>
     </ScrollView>
 </ContentPage>
