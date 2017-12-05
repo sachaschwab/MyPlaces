@@ -7,6 +7,8 @@ using Xamarin.Forms;
 using Plugin.Media;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
+using System.Threading.Tasks;
+using Plugin.Media.Abstractions;
 
 namespace MyPlaces.Standard.ViewModels
 {
@@ -175,7 +177,8 @@ namespace MyPlaces.Standard.ViewModels
             var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
             {
                 //Directory = "Sample",
-                Name = "myPlace_" + DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds.ToString() + ".jpg"
+                Name = "myPlace_" + DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds.ToString() + ".jpg",
+                CustomPhotoSize = 30
             });
 
             if (file == null) return;
@@ -204,10 +207,16 @@ namespace MyPlaces.Standard.ViewModels
             newPlace.Description = Comment;
             newPlace.Date = ImageDateTime;
             newPlace.CategoryId = SelectedItem.CategoryId;
-            //newPlace.Latitude = ;
-            //newPlace.Longitude = ;
 
-            App.PhotoUtility.GenerateThumbnail(_imagePath, 50);
+            var position = await GetLocationAsync();
+            if (position != null)
+            {
+				newPlace.Latitude = position.Latitude;
+                newPlace.Longitude = position.Longitude;
+            }
+            
+
+            App.PhotoUtility.GenerateThumbnail(_imagePath, 100);
 
             await _accessLayer.AddPlace(newPlace);
 
@@ -219,21 +228,14 @@ namespace MyPlaces.Standard.ViewModels
             ImageDateTime = DateTime.Now;
         }
 
-        Position _actualPosition;
+        // Position _actualPosition;
 
-        protected async void GetLocationAsync()
+        protected async Task<Position> GetLocationAsync()
         {
-            var locator = _locator.Current;
-            _locator.DesiredAccuracy = DesiredAccuracy
+            CrossGeolocator.Current.DesiredAccuracy = 100;
 
-                _actualPosition = async locator.GetPositionAsync(timeoutMilliseconds: 1000);
+            return await CrossGeolocator.Current.GetPositionAsync(TimeSpan.FromSeconds(10));
 
-            if (position != null)
-            {
-                _latitude = position.Latitude;
-                _longitude = position.Longitude;
-                //return;
-            }
         }
     }
 }
