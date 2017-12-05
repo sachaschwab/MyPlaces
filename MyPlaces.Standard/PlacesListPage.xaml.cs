@@ -16,7 +16,7 @@ namespace MyPlaces.Standard
         {
             InitializeComponent();
             // TODO: Dummy => get Category Name from Transition from Category List Page
-            Title = " ";
+            Title = "Places";
             // Put in padding if iOS
             if (Device.RuntimePlatform == Device.iOS)
                 Padding = new Thickness(0, 20, 0, 0);
@@ -31,35 +31,43 @@ namespace MyPlaces.Standard
             BindingContext = viewModel = new ViewModels.PlacesViewModel();
             if (viewModel.Places.Count == 0)
                 viewModel.LoadPlacesCommand.Execute(null);
-            
+
             // TODO: Decide whehter to keep the Button bar & picker feature. otherwise, erase these two lines
             CategoryButton.IsVisible = true;
             CategoryPicker.IsVisible = false;
+            if (((App)App.Current).SelectedCategory == null)
+            {
+                CategoryButton.Text = "Please select a category";
+            }
+            else
+            {
+                CategoryButton.Text = ((App)App.Current).SelectedCategory.Name;
+            }
 
-            CategoryButton.Text = Title;
+
         }
 
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            
+
             var place = args.SelectedItem as Data.Place;
             if (place == null)
                 return;
-            
+
             // Provide selected place ID to App "dispatch".
-            ((App)App.Current).SelectedPlaceId = place.PhotoId; 
+            ((App)App.Current).SelectedPlaceId = place.PhotoId;
 
             var mainPage = this.Parent as TabbedPage;
             var newPhotoPage = mainPage.Children[3];
-            mainPage.CurrentPage = newPhotoPage; 
+            mainPage.CurrentPage = newPhotoPage;
         }
 
         void OnButtonClicked(object sender, EventArgs args)
         {
-            //CategoryPicker.IsVisible = false;
-            //CategoryButton.IsVisible = true;
-            //GetCategoryData();
-            //CategoryPicker.Focus();
+            CategoryPicker.IsVisible = false;
+            CategoryButton.IsVisible = true;
+            GetCategoryData();
+            CategoryPicker.Focus();
         }
 
         private async Task GetCategoryData()
@@ -68,7 +76,7 @@ namespace MyPlaces.Standard
 
             CategoryPicker.ItemsSource = categories;
             CategoryPicker.ItemDisplayBinding = new Binding("Name");
-            CategoryPicker.SelectedIndex = 0;
+            CategoryPicker.SelectedIndex = ((App)App.Current).SelectedCategory.CategoryId;
 
             CategoryPicker.Unfocused += (sender, args) =>
             {
