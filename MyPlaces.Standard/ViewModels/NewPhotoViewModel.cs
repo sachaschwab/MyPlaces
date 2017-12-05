@@ -25,8 +25,6 @@ namespace MyPlaces.Standard.ViewModels
         private DateTime _imageDateTime;
         private string _title;
         private string _comment;
-        private Double _latitude;
-        private Double _longitude;
 
 
         public NewPhotoViewModel()

@@ -38,7 +38,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Margin="0,5,0,0" Padding="10" Orientation="Horizontal" >
-                                <Image Source="{Binding Path}"
+                                <Image Source="{Binding ThumbNailPath}"
                                 Aspect="AspectFit"
                                 />
                                 <Label Text="{Binding Title}" 
