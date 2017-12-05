@@ -76,16 +76,22 @@ namespace MyPlaces.Standard
 
             CategoryPicker.ItemsSource = categories;
             CategoryPicker.ItemDisplayBinding = new Binding("Name");
-            CategoryPicker.SelectedIndex = ((App)App.Current).SelectedCategory.CategoryId;
+            if (((App)App.Current).SelectedCategory != null)
+            {
+                CategoryPicker.SelectedIndex = ((App)App.Current).SelectedCategory.CategoryId;
+            }
+            else
+            {
+                CategoryPicker.SelectedIndex = 0;
+            }
 
-            CategoryPicker.Unfocused += (sender, args) =>
+            CategoryPicker.Unfocused += async (sender, args) =>
             {
                 CategoryButton.Text = CategoryPicker.Items[CategoryPicker.SelectedIndex];
-                //CategoryButton.Text = CategoryPicker.SelectedIndex.ToString();
-                Console.WriteLine("Selected index = {0}", CategoryPicker.SelectedIndex);
-                // Refresh the model with the newly chosen category
-
-                ((App)App.Current).SelectedCategory = (Category)CategoryPicker.SelectedItem;
+                var currentCategory = await AccessLayer.GetCategoryById(CategoryPicker.SelectedIndex);
+                ((App)App.Current).SelectedCategory = currentCategory;
+                //((App)App.Current).SelectedCategory.CategoryId = CategoryPicker.SelectedIndex;
+                //((App)App.Current).SelectedCategory = (Category)CategoryPicker.SelectedItem;
                 BindingContext = viewModel = new ViewModels.PlacesViewModel();
                 //viewModel.LoadPlacesCommand.CanExecuteChanged;
             };
