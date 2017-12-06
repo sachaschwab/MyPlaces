@@ -174,7 +174,6 @@ namespace MyPlaces.Standard.ViewModels
 
             var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
             {
-                //Directory = "Sample",
                 Name = "myPlace_" + DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds.ToString() + ".jpg",
                 CustomPhotoSize = 50
             });
