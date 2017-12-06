@@ -92,7 +92,8 @@ namespace MyPlaces.Standard
                 ((App)App.Current).SelectedCategory = currentCategory;
                 //((App)App.Current).SelectedCategory.CategoryId = CategoryPicker.SelectedIndex;
                 //((App)App.Current).SelectedCategory = (Category)CategoryPicker.SelectedItem;
-                BindingContext = viewModel = new ViewModels.PlacesViewModel();
+                //BindingContext = viewModel = new ViewModels.PlacesViewModel();
+                OnAppearing();
                 //viewModel.LoadPlacesCommand.CanExecuteChanged;
             };
         }

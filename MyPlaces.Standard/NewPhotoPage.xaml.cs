@@ -32,6 +32,7 @@ namespace MyPlaces.Standard
             //SaveButton.Clicked += SavePlace;
         }
 
+
         //private async void TakeAPictureAsync(object sender, EventArgs e)
         //{
         //    await CrossMedia.Current.Initialize();

@@ -16,6 +16,8 @@ namespace MyPlaces.Standard.ViewModels
     {
         private DataAccessLayer _accessLayer = new DataAccessLayer();
         private bool _isEditable = true;
+        private bool _isSavable = false;
+        private bool _mapCanBeAccessed = false;
         private bool _fileExists = false;
 
         private List<Category> _categories;
@@ -90,6 +92,26 @@ namespace MyPlaces.Standard.ViewModels
             }
         }
 
+        public bool IsSavable
+        {
+            get { return _isSavable; }
+            set
+            {
+                _isSavable = value;
+                OnPropertyChanged(nameof(IsSavable));
+            }
+        }
+
+        public bool MapCanBeAccessed
+        {
+            get { return _mapCanBeAccessed; }
+            set
+            {
+                _mapCanBeAccessed = value;
+                OnPropertyChanged(nameof(MapCanBeAccessed));
+            }
+        }
+
         public bool FileExists
         {
             get { return _fileExists; }
@@ -120,9 +142,6 @@ namespace MyPlaces.Standard.ViewModels
                 OnPropertyChanged(nameof(SelectedIndex));
             }
         }
-
-
-
 
         private async void LoadData()
         {
@@ -180,7 +199,7 @@ namespace MyPlaces.Standard.ViewModels
             });
 
             if (file == null) return;
-
+            IsSavable = true;
             ImagePath = file.Path;
             FileExists = true;
             //await DisplayAlert("File Location", file.Path, "OK");
@@ -189,6 +208,7 @@ namespace MyPlaces.Standard.ViewModels
             {
                 var stream = file.GetStream();
                 file.Dispose();
+
                 return stream;
             });
 
@@ -226,6 +246,7 @@ namespace MyPlaces.Standard.ViewModels
             await _accessLayer.AddPlace(newPlace);
 
             IsEditable = false;
+            MapCanBeAccessed = true;
         }
 
         protected async Task<Position> GetLocationAsync()
