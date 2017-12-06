@@ -4,9 +4,11 @@
     x:Class="MyPlaces.Standard.NewPhotoPage"
     Title="New Photo">
     <ScrollView>
-        <StackLayout>
+        <StackLayout
+            Margin="20">
             
-            <Label Text="NewPhotoPage"/>
+            <Label Text="NewPhotoPage"
+                    HorizontalOptions="Center"/>
             
             <Button x:Name="CameraButton" 
                     Text="take a picture!"
@@ -25,8 +27,7 @@
                     <FileImageSource File="{Binding ImagePath}"/>
                 </Image.Source>
             </Image>
-            <!--IsEnabled="{Binding FileExists}"-->
-            <!--IsVisible="{Binding FileExists}"-->
+
             
             <Label x:Name="DateTimeLabel" 
                     HorizontalOptions="Center"
@@ -41,14 +42,14 @@
                     IsEnabled="{Binding IsEditable}"/>
             
             <Editor x:Name="DescriptionText"
-                    HeightRequest="200"
-                    MinimumHeightRequest="200"
+                    HeightRequest="100"
                     IsEnabled="{Binding IsEditable}"/>
             
             <Picker x:Name="CategoryPicker" 
                     ItemsSource="{Binding Categories }"
                     ItemDisplayBinding="{Binding Name}"
-                    SelectedIndex="{Binding SelectedIndex}"/>
+                    SelectedIndex="{Binding SelectedIndex}"
+                    />
             
             <Button x:Name="SaveButton" 
                     Text="SAVE"
