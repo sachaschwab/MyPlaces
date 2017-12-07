@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MyPlaces.Standard.Data;
 using Xamarin.Forms;
+using System.Linq;
+using MyPlaces.Standard.ViewModels;
 
 namespace MyPlaces.Standard
 {
@@ -55,7 +57,7 @@ namespace MyPlaces.Standard
 
         }
 
-        private void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
 
             var place = args.SelectedItem as Data.Place;
@@ -66,7 +68,9 @@ namespace MyPlaces.Standard
             ((App)App.Current).SelectedPlaceId = place.PlaceId;
 
             var mainPage = this.Parent as TabbedPage;
-            var newPhotoPage = mainPage.Children[3];
+            var newPhotoPage = mainPage.Children.OfType<NewPhotoPage>().First();
+            NewPhotoViewModel vm = (NewPhotoViewModel)newPhotoPage.BindingContext;
+            await vm.SetPlace(place.PlaceId.Value);
             mainPage.CurrentPage = newPhotoPage;
         }
 

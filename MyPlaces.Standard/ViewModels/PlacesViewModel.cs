@@ -37,11 +37,6 @@ namespace MyPlaces.Standard.ViewModels
 
         private async Task RefreshPlaces()
         {
-            // /var/mobile/Containers/Data/Application/D9AFB064-AE85-4BDC-8D1E-0EC66D0B6BA8/Documents/myPlace_1512652612.15464.thumb.jpg
-            var fileResult = System.IO.Directory.EnumerateFiles(App.PhotoUtility.PhotoBasePath);
-            foreach (string file in fileResult)
-                Debug.WriteLine(file);
-
             Places.Clear();
             if (selectedCategory != null)
             {

@@ -66,9 +66,9 @@ namespace MyPlaces.Standard.Data
             return await connection.Table<Place>().Where(photo => photo.PlaceId == id).FirstOrDefaultAsync();
         }
 
-        public async Task AddPlace(Place place)
+        public async Task SavePlace(Place place)
         {
-            await connection.InsertAsync(place);
+            await connection.InsertOrReplaceAsync(place);
         }
 
         public async Task AddPhoto(Place photo)

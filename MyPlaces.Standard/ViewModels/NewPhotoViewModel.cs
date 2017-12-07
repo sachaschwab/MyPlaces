@@ -9,6 +9,7 @@ using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using System.Threading.Tasks;
 using Plugin.Media.Abstractions;
+using System.IO;
 
 namespace MyPlaces.Standard.ViewModels
 {
@@ -24,11 +25,22 @@ namespace MyPlaces.Standard.ViewModels
         private string _title;
         private string _comment;
         private string newImagePath;
+        private int? placeId;
 
 
         public NewPhotoViewModel()
         {
             LoadData();
+        }
+
+        public async Task SetPlace(int placeId)
+        {
+            Place place = await _accessLayer.GetPhotoById(placeId);
+            ImagePath = !string.IsNullOrEmpty(place.Path) ? Path.Combine(App.PhotoUtility.PhotoBasePath, place.Path) : null;
+            Title = place.Title;
+            Comment = place.Description;
+            SelectedCategory = Categories.FirstOrDefault(c => c.CategoryId == place.CategoryId);
+            this.placeId = place.PlaceId;
         }
 
 
@@ -67,6 +79,7 @@ namespace MyPlaces.Standard.ViewModels
             {
                 _title = value;
                 OnPropertyChanged(nameof(Title));
+                SetIsSaveable();
             }
         }
 
@@ -77,17 +90,18 @@ namespace MyPlaces.Standard.ViewModels
             {
                 _comment = value;
                 OnPropertyChanged(nameof(Comment));
+                SetIsSaveable();
             }
         }
 
-        public bool IsEditable 
-        {
-            get { return _isEditable; }
-            set {
-                _isEditable = value;
-                OnPropertyChanged(nameof(IsEditable));
-            }
-        }
+        //public bool IsEditable => true;
+        //{
+        //    get { return _isEditable; }
+        //    set {
+        //        _isEditable = value;
+        //        OnPropertyChanged(nameof(IsEditable));
+        //    }
+        //}
 
         public Category SelectedCategory
         {
@@ -96,7 +110,23 @@ namespace MyPlaces.Standard.ViewModels
             {
                 _selectedCategory = value;
                 OnPropertyChanged(nameof(SelectedCategory));
+                SetIsSaveable();
             }
+        }
+
+        private bool isSaveable = false;
+        public bool IsSaveable
+        {
+            get => isSaveable;
+            set {
+                isSaveable = value;
+                OnPropertyChanged(nameof(IsSaveable));
+            }
+        }
+
+        private void SetIsSaveable()
+        {
+            IsSaveable = !string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(Comment) && SelectedCategory != null;
         }
 
         public async Task PrepareForNewPlace()
@@ -105,7 +135,7 @@ namespace MyPlaces.Standard.ViewModels
             ImagePath = null;
             Title = "";
             Comment = "";
-            IsEditable = true;
+            // IsEditable = true;
         }
 
         private async Task LoadData()
@@ -179,7 +209,8 @@ namespace MyPlaces.Standard.ViewModels
         private async void SavePlace()
         {
             Place newPlace = new Place();
-            newPlace.Path = System.IO.Path.GetFileName(ImagePath);
+            newPlace.PlaceId = placeId;
+            newPlace.Path = Path.GetFileName(ImagePath);
             newPlace.Title = Title;
             newPlace.Description = Comment;
             newPlace.Date = DateTime.Now;
@@ -202,11 +233,10 @@ namespace MyPlaces.Standard.ViewModels
                 }
             }
 
-            App.PhotoUtility.GenerateThumbnail(_imagePath, Device.RuntimePlatform == Device.Android ? 100 : 60);
+            if (!string.IsNullOrEmpty(ImagePath))
+                App.PhotoUtility.GenerateThumbnail(_imagePath, Device.RuntimePlatform == Device.Android ? 120 : 50);
 
-            await _accessLayer.AddPlace(newPlace);
-
-            IsEditable = false;
+            await _accessLayer.SavePlace(newPlace);
         }
 
         protected async Task<Position> GetLocationAsync()
