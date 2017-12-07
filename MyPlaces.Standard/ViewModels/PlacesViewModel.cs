@@ -59,7 +59,7 @@ namespace MyPlaces.Standard.ViewModels
                         MainPage mainPage = (MainPage)App.Current.MainPage;
                         NewPhotoPage newPhotoPage = mainPage.Children.OfType<NewPhotoPage>().First();
                         ((NewPhotoViewModel)newPhotoPage.BindingContext).IsEditable = true;
-                        mainPage.SelectedItem = newPhotoPage;
+                        mainPage.CurrentPage = newPhotoPage;
                     });
                 }
                 return addPlaceCommand;
