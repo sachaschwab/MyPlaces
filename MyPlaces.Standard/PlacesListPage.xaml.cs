@@ -54,12 +54,12 @@ namespace MyPlaces.Standard
             mainPage.CurrentPage = newPhotoPage; 
         }
 
-        void OnButtonClicked(object sender, EventArgs args)
+        async void OnButtonClicked(object sender, EventArgs args)
         {
-            //CategoryPicker.IsVisible = false;
-            //CategoryButton.IsVisible = true;
-            //GetCategoryData();
-            //CategoryPicker.Focus();
+            CategoryPicker.IsVisible = false;
+            CategoryButton.IsVisible = true;
+            await GetCategoryData();
+            CategoryPicker.Focus();
         }
 
         private async Task GetCategoryData()
