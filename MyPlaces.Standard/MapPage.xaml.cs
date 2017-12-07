@@ -133,7 +133,19 @@ namespace MyPlaces.Standard
             {
                 Type = PinType.Generic,
                 Position = new Position(place.Latitude, place.Longitude),
-                Label = place.Title,
+                Label = place.Title + Environment.NewLine + "(" + place.CategoryId + ")"
+            };
+            pin.Clicked += (object sender, EventArgs e) =>
+            {
+                if (place == null)
+                    return;
+
+                // Provide selected place ID to App "dispatch".
+                ((App)App.Current).SelectedPlaceId = place.PhotoId;
+
+                var mainPage = this.Parent as TabbedPage;
+                var newPhotoPage = mainPage.Children[3];
+                mainPage.CurrentPage = newPhotoPage;
             };
             return pin;
         }

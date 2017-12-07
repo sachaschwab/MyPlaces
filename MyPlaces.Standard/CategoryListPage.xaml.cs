@@ -32,7 +32,9 @@ namespace MyPlaces.Standard
             ((App)App.Current).SelectedCategory = category;// CurrentCategoryID = category.CategoryId;
             MainPage mainPage = (MainPage)App.Current.MainPage;
             PlacesListPage placesListPage = mainPage.Children.OfType<PlacesListPage>().Single();
-            placesListPage.Title = category.Name;
+            //TODO: Sacha: I'm commenting the line below out as we might want to keep the title "Places" defined in the PlacesListPage
+            //placesListPage.Title = category.Name;
+            placesListPage.Title = "Places"; 
             mainPage.CurrentPage = placesListPage;
         }
     }
