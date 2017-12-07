@@ -25,8 +25,6 @@
                     <FileImageSource File="{Binding ImagePath}"/>
                 </Image.Source>
             </Image>
-            <!--IsEnabled="{Binding FileExists}"-->
-            <!--IsVisible="{Binding FileExists}"-->
             
             <Label x:Name="DateTimeLabel" 
                     HorizontalOptions="Center"
@@ -48,7 +46,7 @@
             <Picker x:Name="CategoryPicker" 
                     ItemsSource="{Binding Categories }"
                     ItemDisplayBinding="{Binding Name}"
-                    SelectedIndex="{Binding SelectedIndex}"
+                    SelectedItem="{Binding SelectedCategory}"
                     Title="Select Category"/>
             
             <Button x:Name="SaveButton" 

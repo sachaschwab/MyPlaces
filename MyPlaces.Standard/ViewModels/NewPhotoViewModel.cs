@@ -8,7 +8,6 @@ using Plugin.Media;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using System.Threading.Tasks;
-using Plugin.Media.Abstractions;
 
 namespace MyPlaces.Standard.ViewModels
 {
@@ -16,11 +15,9 @@ namespace MyPlaces.Standard.ViewModels
     {
         private DataAccessLayer _accessLayer = new DataAccessLayer();
         private bool _isEditable = true;
-        private bool _fileExists = false;
 
         private List<Category> _categories;
-        private Category _selectedItem;
-        private int _selectedIndex = 1;
+        private Category _selectedCategory;
         private string _imagePath;
         private DateTime _imageDateTime;
         private string _title;
@@ -90,44 +87,20 @@ namespace MyPlaces.Standard.ViewModels
             }
         }
 
-        public bool FileExists
+        public Category SelectedCategory
         {
-            get { return _fileExists; }
+            get { return _selectedCategory; }
             set
             {
-                _fileExists = value;
-                OnPropertyChanged(nameof(FileExists));
+                _selectedCategory = value;
+                OnPropertyChanged(nameof(SelectedCategory));
             }
         }
-
-        public Category SelectedItem
-        {
-            get { return _selectedItem; }
-            set
-            {
-                _selectedItem = value;
-                OnPropertyChanged(nameof(SelectedItem));
-            }
-        }
-
-        public int SelectedIndex
-        {
-            get { return _selectedIndex; }
-            set
-            {
-                _selectedIndex = value;
-                SelectedItem = Categories[_selectedIndex];
-                OnPropertyChanged(nameof(SelectedIndex));
-            }
-        }
-
-
-
 
         private async void LoadData()
         {
             Categories = await _accessLayer.GetAllCategories();
-            _selectedItem = Categories.FirstOrDefault();
+            _selectedCategory = Categories.FirstOrDefault();
         }
 
         private ICommand _saveCommand;
@@ -174,23 +147,21 @@ namespace MyPlaces.Standard.ViewModels
 
             var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
             {
-                //Directory = "Sample",
                 Name = "myPlace_" + DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds.ToString() + ".jpg",
-                CustomPhotoSize = 50
+                CustomPhotoSize = 50, 
+                Directory = App.PhotoUtility.PhotoBasePath
             });
 
             if (file == null) return;
 
             ImagePath = file.Path;
-            FileExists = true;
-            //await DisplayAlert("File Location", file.Path, "OK");
 
-            var image = ImageSource.FromStream(() =>
-            {
-                var stream = file.GetStream();
-                file.Dispose();
-                return stream;
-            });
+            //var image = ImageSource.FromStream(() =>
+            //{
+            //    var stream = file.GetStream();
+            //    file.Dispose();
+            //    return stream;
+            //});
 
         }
 
@@ -202,7 +173,7 @@ namespace MyPlaces.Standard.ViewModels
             newPlace.Title = Title;
             newPlace.Description = Comment;
             newPlace.Date = DateTime.Now;
-            newPlace.CategoryId = SelectedItem.CategoryId;
+            newPlace.CategoryId = SelectedCategory.CategoryId;
 
             IPermission permissions = ((App)App.Current).Permissions;
 
