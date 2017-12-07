@@ -23,6 +23,7 @@ namespace MyPlaces.Standard.ViewModels
         private DateTime _imageDateTime;
         private string _title;
         private string _comment;
+        private string newImagePath;
 
 
         public NewPhotoViewModel()
@@ -165,14 +166,13 @@ namespace MyPlaces.Standard.ViewModels
 
             ImagePath = file.Path;
 
-
-            //var image = ImageSource.FromStream(() =>
-            //{
-            //    var stream = file.GetStream();
-            //    file.Dispose();
-            //    return stream;
-            //});
-
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                newImagePath = System.IO.Path.Combine(App.PhotoUtility.PhotoBasePath, System.IO.Path.GetFileName(ImagePath));
+                System.IO.File.Copy(ImagePath, newImagePath);
+                System.IO.File.Delete(ImagePath);
+                ImagePath = newImagePath;
+            }
         }
 
 
