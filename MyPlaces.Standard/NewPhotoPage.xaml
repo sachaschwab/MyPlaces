@@ -33,7 +33,7 @@
                     Title="Tap to select a category"
                     ItemsSource="{Binding Categories }"
                     ItemDisplayBinding="{Binding Name}"
-                    SelectedIndex="{Binding SelectedIndex}"/>
+                    SelectedItem="{Binding SelectedCategory}"/>
         
             <Image x:Name="Foto" 
                     Grid.Row="3"

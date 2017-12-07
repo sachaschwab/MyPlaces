@@ -165,6 +165,7 @@ namespace MyPlaces.Standard.ViewModels
 
             ImagePath = file.Path;
 
+
             //var image = ImageSource.FromStream(() =>
             //{
             //    var stream = file.GetStream();
@@ -178,7 +179,7 @@ namespace MyPlaces.Standard.ViewModels
         private async void SavePlace()
         {
             Place newPlace = new Place();
-            newPlace.Path = ImagePath;
+            newPlace.Path = System.IO.Path.GetFileName(ImagePath);
             newPlace.Title = Title;
             newPlace.Description = Comment;
             newPlace.Date = DateTime.Now;

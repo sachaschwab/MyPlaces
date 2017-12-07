@@ -141,7 +141,7 @@ namespace MyPlaces.Standard
                     return;
 
                 // Provide selected place ID to App "dispatch".
-                ((App)App.Current).SelectedPlaceId = place.PhotoId;
+                ((App)App.Current).SelectedPlaceId = place.PlaceId;
 
                 var mainPage = this.Parent as TabbedPage;
                 var newPhotoPage = mainPage.Children[3];

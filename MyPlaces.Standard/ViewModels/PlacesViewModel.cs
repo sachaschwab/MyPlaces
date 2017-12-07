@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace MyPlaces.Standard.ViewModels
 {
@@ -22,30 +23,66 @@ namespace MyPlaces.Standard.ViewModels
         {
             Places = new ObservableCollection<Place>();
             LoadPlacesCommand = new Command(async () => await ExecuteLoadPlacesCommand());
+            LoadData().ContinueWith(t =>
+            {
+                if (t.IsFaulted)
+                    throw t.Exception;
+            });
+        }
 
+        private async Task LoadData()
+        {
+            Categories = await dataAccessLayer.GetAllCategories();
+        }
+
+        private async Task RefreshPlaces()
+        {
+            // /var/mobile/Containers/Data/Application/D9AFB064-AE85-4BDC-8D1E-0EC66D0B6BA8/Documents/myPlace_1512652612.15464.thumb.jpg
+            var fileResult = System.IO.Directory.EnumerateFiles(App.PhotoUtility.PhotoBasePath);
+            foreach (string file in fileResult)
+                Debug.WriteLine(file);
+
+            Places.Clear();
+            if (selectedCategory != null)
+            {
+                var result = await dataAccessLayer.GetAllPhotosByCategoryId(selectedCategory.CategoryId);
+                foreach (Place place in result)
+                    Places.Add(place);
+            }
+        }
+
+        private Category selectedCategory;
+        public Category SelectedCategory
+        {
+            get => selectedCategory;
+            set {
+                selectedCategory = value;
+                OnPropertyChanged(nameof(SelectedCategory));
+                RefreshPlaces().ContinueWith(t => { if (t.IsFaulted) throw t.Exception; });
+            }
+        }
+
+        private List<Category> categories;
+        public List<Category> Categories
+        {
+            get => categories;
+            set {
+                categories = value;
+                OnPropertyChanged(nameof(Categories));
+            }
         }
 
         async Task ExecuteLoadPlacesCommand()
         {
-            
-            try
+            Places.Clear();
+
+            var categoryId = ((App)App.Current).SelectedCategory?.CategoryId ?? 1;
+
+            var places = await dataAccessLayer.GetAllPhotosByCategoryId(categoryId);
+
+            foreach (var place in places)
             {
-                Places.Clear();
-
-                // Get category ID eventually selected from CategoriesList
-                // TODO: Erase this dummy once Doiminik has implemented shift from Categories list page
-                var categoryId = ((App)App.Current).SelectedCategory?.CategoryId ?? 1;
-
-                var places = await dataAccessLayer.GetAllPhotosByCategoryId(categoryId);
-
-                foreach (var place in places)
-                {
-                    Places.Add(place);
-                }
-            } 
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
+                Places.Add(place);
             }
         }
 

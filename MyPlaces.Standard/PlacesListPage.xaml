@@ -19,7 +19,10 @@
                 IsVisible="false"
                 BackgroundColor="#eeeeee"
                 TextColor="Black"
-                HeightRequest="50" />
+                HeightRequest="50"
+                ItemsSource="{Binding Categories}"
+                SelectedItem="{Binding SelectedCategory}"
+                ItemDisplayBinding="{Binding Name}"/>
             <Button 
                 x:Name="CategoryButton" Grid.ColumnSpan="2"
                 Clicked="OnButtonClicked"
@@ -36,10 +39,7 @@
                 ItemsSource="{Binding Places}" 
                 VerticalOptions="FillAndExpand" 
                 HasUnevenRows="true" 
-                RefreshCommand="{Binding LoadPlacesCommand}" 
-                IsPullToRefreshEnabled="true" 
                 IsRefreshing="{Binding IsBusy, Mode=OneWay}" 
-                CachingStrategy="RecycleElement" 
                 ItemSelected="OnItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>

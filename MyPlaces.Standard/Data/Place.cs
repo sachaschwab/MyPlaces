@@ -7,7 +7,7 @@ namespace MyPlaces.Standard.Data
     {
         [PrimaryKey]
         [AutoIncrement]
-        public int PhotoId { get; set; }
+        public int? PlaceId { get; set; }
 
         public double Longitude { get; set; }
 
@@ -28,7 +28,8 @@ namespace MyPlaces.Standard.Data
                 if (string.IsNullOrWhiteSpace(Path))
                     return "";
                 string extension = System.IO.Path.GetExtension(Path);
-                return Path.Substring(0, Path.Length - extension.Length) + ".thumb" + extension; 
+                string thumbnailName = Path.Substring(0, Path.Length - extension.Length) + ".thumb" + extension;
+                return System.IO.Path.Combine(App.PhotoUtility.PhotoBasePath, thumbnailName);
             }
         }
 
