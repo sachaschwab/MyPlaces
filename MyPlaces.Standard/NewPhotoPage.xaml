@@ -48,7 +48,8 @@
             <Picker x:Name="CategoryPicker" 
                     ItemsSource="{Binding Categories }"
                     ItemDisplayBinding="{Binding Name}"
-                    SelectedIndex="{Binding SelectedIndex}"/>
+                    SelectedIndex="{Binding SelectedIndex}"
+                    Title="Select Category"/>
             
             <Button x:Name="SaveButton" 
                     Text="SAVE"

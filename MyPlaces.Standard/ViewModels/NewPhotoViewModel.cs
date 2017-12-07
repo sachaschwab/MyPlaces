@@ -221,7 +221,7 @@ namespace MyPlaces.Standard.ViewModels
                 }
             }
 
-            App.PhotoUtility.GenerateThumbnail(_imagePath, 100);
+            App.PhotoUtility.GenerateThumbnail(_imagePath, Device.RuntimePlatform == Device.Android ? 100 : 60);
 
             await _accessLayer.AddPlace(newPlace);
 
