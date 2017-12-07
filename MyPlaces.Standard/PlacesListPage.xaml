@@ -4,17 +4,24 @@
     x:Class="MyPlaces.Standard.PlacesListPage"
     Title="Category">
 	<ContentPage.Content>
-        <StackLayout
-            Orientation="Vertical">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
             <Picker 
                 x:Name="CategoryPicker" 
                 IsVisible="false"
                 BackgroundColor="#eeeeee"
                 TextColor="Black"
-                HeightRequest="50"      
-            />
+                HeightRequest="50" />
             <Button 
-                x:Name="CategoryButton"
+                x:Name="CategoryButton" Grid.ColumnSpan="2"
                 Clicked="OnButtonClicked"
                 Margin="0,20,0,0"
                 HorizontalOptions="FillAndExpand"
@@ -25,7 +32,7 @@
                 Text="Please select a category"
                 HeightRequest="50"/>
             
-            <ListView x:Name="PlacesListView" 
+            <ListView x:Name="PlacesListView" Grid.Row="1" Grid.RowSpan="2"  Grid.ColumnSpan="2"
                 ItemsSource="{Binding Places}" 
                 VerticalOptions="FillAndExpand" 
                 HasUnevenRows="true" 
@@ -39,8 +46,7 @@
                         <ViewCell>
                             <StackLayout Margin="0,5,0,0" Padding="10" Orientation="Horizontal" >
                                 <Image Source="{Binding ThumbNailPath}"
-                                Aspect="AspectFit"
-                                />
+                                Aspect="AspectFit" />
                                 <Label Text="{Binding Title}" 
                                 LineBreakMode="NoWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 
@@ -54,6 +60,11 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackLayout>
+            <Image Grid.Row="2" Grid.Column="1" Source="AddButton.png" WidthRequest="60" HeightRequest="60" Margin="20">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding AddPlaceCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </Grid>
 	</ContentPage.Content>
 </ContentPage>

@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace MyPlaces.Standard.ViewModels
 {
@@ -45,6 +46,23 @@ namespace MyPlaces.Standard.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
+            }
+        }
+
+        private ICommand addPlaceCommand;
+        public ICommand AddPlaceCommand
+        {
+            get {
+                if (addPlaceCommand == null)
+                {
+                    addPlaceCommand = new Command(() => {
+                        MainPage mainPage = (MainPage)App.Current.MainPage;
+                        NewPhotoPage newPhotoPage = mainPage.Children.OfType<NewPhotoPage>().First();
+                        ((NewPhotoViewModel)newPhotoPage.BindingContext).IsEditable = true;
+                        mainPage.SelectedItem = newPhotoPage;
+                    });
+                }
+                return addPlaceCommand;
             }
         }
     }
