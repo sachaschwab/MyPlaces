@@ -65,10 +65,14 @@
                     Command="{Binding TakeAPictureCommand}"
                     IsVisible="{Binding IsEditable}"/>
             
-            <Image x:Name="MapButten" 
+            <Image x:Name="MapButton" 
                     Grid.Row="7"
                     Source="pin1.png"
-                    IsVisible="{Binding MapCanBeAccessed}"/>
+                    IsVisible="{Binding MapCanBeAccessed}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowOnMapCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
 
     </Grid>
 </ContentPage>

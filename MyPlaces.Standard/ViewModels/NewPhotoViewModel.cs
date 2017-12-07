@@ -237,6 +237,8 @@ namespace MyPlaces.Standard.ViewModels
                 App.PhotoUtility.GenerateThumbnail(_imagePath, Device.RuntimePlatform == Device.Android ? 120 : 50);
 
             await _accessLayer.SavePlace(newPlace);
+
+            await App.Current.MainPage.DisplayAlert("SAVED", "This place was saved", "OK");
         }
 
         protected async Task<Position> GetLocationAsync()
@@ -245,6 +247,22 @@ namespace MyPlaces.Standard.ViewModels
 
             return await CrossGeolocator.Current.GetPositionAsync(TimeSpan.FromSeconds(10));
 
+        }
+
+        private ICommand showOnMapCommand;
+        public ICommand ShowOnMapCommand
+        {
+            get {
+                if (showOnMapCommand == null)
+                {
+                    showOnMapCommand = new Command(() => {
+                        ((App)App.Current).SelectedPlaceId = this.placeId;
+                        MainPage mainPage = (MainPage)App.Current.MainPage;
+                        mainPage.CurrentPage = mainPage.Children.OfType<MapPage>().First();
+                    });
+                }
+                return showOnMapCommand;
+            }
         }
     }
 }
