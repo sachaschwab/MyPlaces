@@ -21,8 +21,8 @@ namespace MyPlaces.Standard.Data
 
         static DataAccessLayer()
         {
-            places.Add(new Place { PhotoId = 1, CategoryId = 1, Title = "Haus", Description = "Leider nicht meins", Date = DateTime.Parse("2017-10-01"), Latitude = 47.2, Longitude = 8.8, Path = "Haus_image_thumb.png"  });
-            places.Add(new Place { PhotoId = 2, CategoryId = 2, Title = "Schiff", Description = "Leider nicht meins", Date = DateTime.Parse("2017-10-02"), Latitude = 47.3, Longitude = 8.81, Path = "Haus_image_thumb.png"  });
+            places.Add(new Place { PhotoId = 1, CategoryId = 1, Title = "Haus", Description = "Leider nicht meins", Date = DateTime.Parse("2017-10-01"), Latitude = 47.2, Longitude = 8.8, Path = "Haus_image.png"  });
+            places.Add(new Place { PhotoId = 2, CategoryId = 2, Title = "Schiff", Description = "Leider nicht meins", Date = DateTime.Parse("2017-10-02"), Latitude = 47.3, Longitude = 8.81, Path = "Haus_image.png"  });
 
             categories.Add(new Category { CategoryId = 1, Name = "Häuser", Color = "#FF0000" });
             categories.Add(new Category { CategoryId = 2, Name = "Schiffe", Color = "#00FF00" });

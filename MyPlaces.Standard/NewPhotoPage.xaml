@@ -35,13 +35,14 @@
             
             <Entry x:Name="TitleText" 
                     Placeholder="Title"
-                    Text="{Binding Title}"
+                    Text="{Binding Title, Mode = TwoWay}"
                     IsEnabled="{Binding IsEditable}"/>
             
-            <Editor x:Name="DescriptionText"
+            <Entry x:Name="DescriptionText"
                     HeightRequest="200"
                     MinimumHeightRequest="200"
-                    IsEnabled="{Binding IsEditable}"/>
+                    IsEnabled="{Binding IsEditable}"
+                    Text="{Binding Comment}"/>
             
             <Picker x:Name="CategoryPicker" 
                     ItemsSource="{Binding Categories }"

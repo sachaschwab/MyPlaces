@@ -8,6 +8,7 @@ using Plugin.Media;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using System.Threading.Tasks;
+using Plugin.Media.Abstractions;
 
 namespace MyPlaces.Standard.ViewModels
 {
@@ -97,7 +98,16 @@ namespace MyPlaces.Standard.ViewModels
             }
         }
 
-        private async void LoadData()
+        public async Task PrepareForNewPlace()
+        {
+            await LoadData();
+            ImagePath = null;
+            Title = "";
+            Comment = "";
+            IsEditable = true;
+        }
+
+        private async Task LoadData()
         {
             Categories = await _accessLayer.GetAllCategories();
             _selectedCategory = Categories.FirstOrDefault();
@@ -145,11 +155,10 @@ namespace MyPlaces.Standard.ViewModels
                 return;
             }
 
-            var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+            var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
             {
                 Name = "myPlace_" + DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds.ToString() + ".jpg",
                 CustomPhotoSize = 50, 
-                Directory = App.PhotoUtility.PhotoBasePath
             });
 
             if (file == null) return;

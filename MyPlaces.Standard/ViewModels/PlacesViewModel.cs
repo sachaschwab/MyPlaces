@@ -55,10 +55,10 @@ namespace MyPlaces.Standard.ViewModels
             get {
                 if (addPlaceCommand == null)
                 {
-                    addPlaceCommand = new Command(() => {
+                    addPlaceCommand = new Command(async () => {
                         MainPage mainPage = (MainPage)App.Current.MainPage;
                         NewPhotoPage newPhotoPage = mainPage.Children.OfType<NewPhotoPage>().First();
-                        ((NewPhotoViewModel)newPhotoPage.BindingContext).IsEditable = true;
+                        await ((NewPhotoViewModel)newPhotoPage.BindingContext).PrepareForNewPlace();
                         mainPage.CurrentPage = newPhotoPage;
                     });
                 }
