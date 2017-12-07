@@ -15,7 +15,7 @@ using System.Linq;
 
 namespace MyPlaces.Droid
 {
-    [Activity(Label = "MyPlaces.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "MyPlaces", Icon = "@drawable/ic_launcher", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, IPermission
     {
         private int LOCATION_PERMISSION_REQUEST = 1;

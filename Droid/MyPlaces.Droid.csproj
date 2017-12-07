@@ -197,6 +197,10 @@
     <AndroidResource Include="Resources\drawable\AddButton.png" />
     <AndroidResource Include="Resources\drawable\Haus_image_thumb.png" />
     <AndroidResource Include="Resources\drawable\pin1.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\drawable\ic_launcher.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\xml\" />
