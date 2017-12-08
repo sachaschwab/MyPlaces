@@ -54,7 +54,7 @@ namespace MyPlaces.Standard.ViewModels
             Places.Clear();
             if (selectedCategory != null)
             {
-                var result = await dataAccessLayer.GetAllPhotosByCategoryId(selectedCategory.CategoryId);
+                var result = await dataAccessLayer.GetAllPhotosByCategoryId(selectedCategory.CategoryId.Value);
                 foreach (Place place in result)
                     Places.Add(place);
             }
@@ -97,7 +97,7 @@ namespace MyPlaces.Standard.ViewModels
                 return; 
             // var categoryId = ((App)App.Current).SelectedCategory?.CategoryId ?? 1;
 
-            var places = await dataAccessLayer.GetAllPhotosByCategoryId(SelectedCategory.CategoryId);
+            var places = await dataAccessLayer.GetAllPhotosByCategoryId(SelectedCategory.CategoryId.Value);
 
             foreach (var place in places)
             {

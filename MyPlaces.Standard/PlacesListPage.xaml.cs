@@ -38,7 +38,6 @@ namespace MyPlaces.Standard
         {
             base.OnAppearing();
             // Refresh context upon returning to the page from categories list page
-            BindingContext = viewModel = new ViewModels.PlacesViewModel();
             if (viewModel.Places.Count == 0)
                 viewModel.LoadPlacesCommand.Execute(null);
 

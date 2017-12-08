@@ -32,7 +32,7 @@ namespace MyPlaces.Standard
             };
 
             mapViewModel = new MapViewModel(category);
-            currentCategoryId = category.CategoryId;
+            currentCategoryId = category.CategoryId.Value;
             BindingContext = mapViewModel;
         }
 
@@ -49,7 +49,7 @@ namespace MyPlaces.Standard
             // Check whether the current category ID has been set. Otherwise, set categoryId = 0
             if (((App)App.Current).SelectedCategory != null)
             {
-                currentCategoryId = ((App)App.Current).SelectedCategory.CategoryId; 
+                currentCategoryId = ((App)App.Current).SelectedCategory.CategoryId.Value; 
             }
 
             List<Data.Place> places;

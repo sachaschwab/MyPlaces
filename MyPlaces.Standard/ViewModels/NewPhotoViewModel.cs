@@ -224,7 +224,7 @@ namespace MyPlaces.Standard.ViewModels
             newPlace.Title = Title;
             newPlace.Description = Comment;
             newPlace.Date = DateTime.Now;
-            newPlace.CategoryId = SelectedCategory.CategoryId;
+            newPlace.CategoryId = SelectedCategory.CategoryId.Value;
 
             IPermission permissions = ((App)App.Current).Permissions;
 
