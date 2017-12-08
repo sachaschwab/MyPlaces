@@ -16,7 +16,7 @@ namespace MyPlaces.Standard.ViewModels
     public class NewPhotoViewModel: BaseViewModel
     {
         private DataAccessLayer _accessLayer = new DataAccessLayer();
-        private bool _isEditable = true;
+        //private bool _isEditable = true;
 
         private List<Category> _categories;
         private Category _selectedCategory;
@@ -30,7 +30,17 @@ namespace MyPlaces.Standard.ViewModels
 
         public NewPhotoViewModel()
         {
-            LoadData();
+            LoadData().ContinueWith(t => {
+                if (t.IsFaulted)
+                    throw t.Exception;
+            });
+
+            MessagingCenter.Subscribe<object>(this, MessageNames.CATEGORY_EDITED, sender => {
+                LoadData().ContinueWith(t => {
+                    if (t.IsFaulted)
+                        throw t.Exception;
+                });
+            });
         }
 
         public async Task SetPlace(int placeId)

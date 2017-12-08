@@ -96,6 +96,11 @@ namespace MyPlaces.Standard
         {
             Karte.Pins.Clear();
 
+            if(places.Count == 0)
+            {
+                return;
+            }
+
             // From Photo List, calculate extreme poin coordinates and center coordinates
             var extrCoords = new Data.MapCenter.ExtremeCoords();
             extrCoords = mapCenter.CalculateExtremeCoords(places);
