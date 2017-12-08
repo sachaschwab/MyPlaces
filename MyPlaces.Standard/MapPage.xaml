@@ -4,7 +4,7 @@
     x:Class="MyPlaces.Standard.MapPage"
     xmlns:local="clr-namespace:MyPlaces"
     xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
-    Title="Map">
+    Title="Map" Icon="map_location.png">
     <StackLayout>
         <Label Text="MyPlaces Map Page"/>
         <maps:Map x:Name="Karte" MapType="Street" 

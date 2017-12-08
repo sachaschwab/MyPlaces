@@ -201,6 +201,11 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\drawable\ic_launcher.png" />
+    <AndroidResource Include="Resources\drawable\camera.png" />
+    <AndroidResource Include="Resources\drawable\folder_image.png" />
+    <AndroidResource Include="Resources\drawable\folder_location.png" />
+    <AndroidResource Include="Resources\drawable\map_location.png" />
+    <AndroidResource Include="Resources\drawable\map_route.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\xml\" />
