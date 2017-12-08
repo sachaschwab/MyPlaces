@@ -71,9 +71,11 @@ namespace MyPlaces.Standard.ViewModels
         {
             Places.Clear();
 
-            var categoryId = ((App)App.Current).SelectedCategory?.CategoryId ?? 1;
+            if (SelectedCategory == null)
+                return; 
+            // var categoryId = ((App)App.Current).SelectedCategory?.CategoryId ?? 1;
 
-            var places = await dataAccessLayer.GetAllPhotosByCategoryId(categoryId);
+            var places = await dataAccessLayer.GetAllPhotosByCategoryId(SelectedCategory.CategoryId);
 
             foreach (var place in places)
             {
