@@ -254,6 +254,8 @@ namespace MyPlaces.Standard.ViewModels
                 {
                     showOnMapCommand = new Command(() => {
                         ((App)App.Current).SelectedPlaceId = this.placeId;
+                        // Setting current category to null as a place has been selected
+                        ((App)App.Current).SelectedCategory = null;
                         MainPage mainPage = (MainPage)App.Current.MainPage;
                         mainPage.CurrentPage = mainPage.Children.OfType<MapPage>().First();
                     });

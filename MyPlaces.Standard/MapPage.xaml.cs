@@ -13,7 +13,6 @@ namespace MyPlaces.Standard
     {
         Data.DataAccessLayer dataAccessLayer = new Data.DataAccessLayer();
         Data.MapCenter mapCenter = new Data.MapCenter();
-        // int currentCategoryId;
         List<Place> places = new List<Place>();
         App app = (App)App.Current;
 
@@ -31,6 +30,14 @@ namespace MyPlaces.Standard
             base.OnAppearing();
             places.Clear();
             Karte.Pins.Clear();
+
+            List<Pin> pinsList = new List<Pin>();
+            pinsList = Karte.Pins.ToList();
+            foreach (Pin p in pinsList)
+            {
+                Karte.Pins.Remove(p);
+            }
+
 
             TitleLabel.IsVisible = app.SelectedPlaceId.HasValue;
 
