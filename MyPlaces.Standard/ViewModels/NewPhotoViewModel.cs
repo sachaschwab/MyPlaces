@@ -16,7 +16,6 @@ namespace MyPlaces.Standard.ViewModels
     public class NewPhotoViewModel: BaseViewModel
     {
         private DataAccessLayer _accessLayer = new DataAccessLayer();
-        //private bool _isEditable = true;
 
         private List<Category> _categories;
         private Category _selectedCategory;
@@ -104,15 +103,6 @@ namespace MyPlaces.Standard.ViewModels
             }
         }
 
-        //public bool IsEditable => true;
-        //{
-        //    get { return _isEditable; }
-        //    set {
-        //        _isEditable = value;
-        //        OnPropertyChanged(nameof(IsEditable));
-        //    }
-        //}
-
         public Category SelectedCategory
         {
             get { return _selectedCategory; }
@@ -145,7 +135,7 @@ namespace MyPlaces.Standard.ViewModels
             ImagePath = null;
             Title = "";
             Comment = "";
-            // IsEditable = true;
+            placeId = null;
         }
 
         private async Task LoadData()
@@ -182,9 +172,6 @@ namespace MyPlaces.Standard.ViewModels
                 return _takeAPictureCommand;
             }
         }
-
-
-
 
         private async void TakeAPictureAsync()
         {

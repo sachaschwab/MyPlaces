@@ -1,9 +1,7 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using MyPlaces.Standard.Data;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
@@ -14,8 +12,9 @@ namespace MyPlaces.Standard.ViewModels
     public class PlacesViewModel : BaseViewModel
     {
         private string _categoryButtonText = "Press to select a category";
-        Data.DataAccessLayer dataAccessLayer = new Data.DataAccessLayer();
+        DataAccessLayer dataAccessLayer = new Data.DataAccessLayer();
         MapPage mapPage = new MapPage();
+        App app = (App)App.Current;
 
         public ObservableCollection<Place> Places { get; set; }
         public Command LoadPlacesCommand { get; set; }
@@ -59,6 +58,8 @@ namespace MyPlaces.Standard.ViewModels
 
         private async Task RefreshPlaces()
         {
+            var test = await dataAccessLayer.GetAllPlaces();
+
             Places.Clear();
             if (selectedCategory != null)
             {
@@ -73,6 +74,8 @@ namespace MyPlaces.Standard.ViewModels
         {
             get => selectedCategory;
             set {
+                app.SelectedCategory = value;
+                app.SelectedPlaceId = null;
                 if (selectedCategory?.CategoryId == value?.CategoryId)
                     return;
                 selectedCategory = value;
@@ -98,22 +101,6 @@ namespace MyPlaces.Standard.ViewModels
                 OnPropertyChanged(nameof(Categories));
             }
         }
-
-        //async Task ExecuteLoadPlacesCommand()
-        //{
-        //    Places.Clear();
-
-        //    if (SelectedCategory == null)
-        //        return; 
-        //    // var categoryId = ((App)App.Current).SelectedCategory?.CategoryId ?? 1;
-
-        //    var places = await dataAccessLayer.GetAllPhotosByCategoryId(SelectedCategory.CategoryId.Value);
-
-        //    foreach (var place in places)
-        //    {
-        //        Places.Add(place);
-        //    }
-        //}
 
         private ICommand addPlaceCommand;
         public ICommand AddPlaceCommand

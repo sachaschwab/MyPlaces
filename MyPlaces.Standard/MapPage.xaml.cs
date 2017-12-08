@@ -5,6 +5,7 @@ using MyPlaces.Standard.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using System.Linq;
+using MyPlaces.Standard.Data;
 
 namespace MyPlaces.Standard
 {
@@ -12,7 +13,9 @@ namespace MyPlaces.Standard
     {
         Data.DataAccessLayer dataAccessLayer = new Data.DataAccessLayer();
         Data.MapCenter mapCenter = new Data.MapCenter();
-        int currentCategoryId;
+        // int currentCategoryId;
+        List<Place> places = new List<Place>();
+        App app = (App)App.Current;
 
         public MapPage()
         {
@@ -26,15 +29,29 @@ namespace MyPlaces.Standard
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            places.Clear();
+            Karte.Pins.Clear();
+
+            if (app.SelectedPlaceId.HasValue)
+            {
+                Place place = await dataAccessLayer.GetPlaceById(app.SelectedPlaceId.Value);
+                places.Add(place);
+            }
+            else if (app.SelectedCategory != null)
+            {
+                places = await dataAccessLayer.GetAllPlacesByCategoryId(app.SelectedCategory.CategoryId.Value);
+            }
+            else
+                places = await dataAccessLayer.GetAllPlaces();
+            
 
             // Check whether the current category ID has been set. Otherwise, set categoryId = 0
-            if (((App)App.Current).SelectedCategory != null)
-            {
-                currentCategoryId = ((App)App.Current).SelectedCategory.CategoryId.Value; 
-            }
+            //if (((App)App.Current).SelectedCategory != null)
+            //{
+            //    currentCategoryId = ((App)App.Current).SelectedCategory.CategoryId.Value; 
+            //}
 
-            List<Data.Place> places;
-            places = await GetPlacesList();
+            //places = await GetPlacesList();
 
             PresentMap(places);
         }
@@ -42,40 +59,35 @@ namespace MyPlaces.Standard
         /* Here, other pages can provide a category to display in background or at MapView call.
          * Category 0 provides places of all Categories
          */
-        public async Task SetMapPinCategoryAsync(int categoryId)
-        {
+        //public async Task SetMapPinCategoryAsync(int categoryId) // TODO: remove, make all communication over App
+        //{
             
-            currentCategoryId = categoryId;
-            List<Data.Place> places;
-            places = await GetPlacesList();
+        //    currentCategoryId = categoryId;
+        //    places = await dataAccessLayer.GetAllPlacesByCategoryId(categoryId);
+        //}
 
-            PresentMap(places);
-        }
+        //public async Task<List<Data.Place>> GetPlacesList()
+        //{
+        //    /* Here we transition from the category list page if the current category is dummy.
+        //     * Otherwise, we transition from a specific category places view.
+        //     * In the dummy case, generate list of places of ALL categories.
+        //     * Otherwise, list places of the specific category.
+        //     */
+        //    if (currentCategoryId != 0)
+        //    {
+        //        places = await dataAccessLayer.GetAllPlacesByCategoryId(currentCategoryId);
+        //    }
+        //    else
+        //    {
+        //        places = await dataAccessLayer.GetAllPlaces();
+        //    }
 
-        public async Task<List<Data.Place>> GetPlacesList()
-        {
-            List<Data.Place> places;
-
-            /* Here we transition from the category list page if the current category is dummy.
-             * Otherwise, we transition from a specific category places view.
-             * In the dummy case, generate list of places of ALL categories.
-             * Otherwise, list places of the specific category.
-             */
-            if (currentCategoryId != 0)
-            {
-                places = await dataAccessLayer.GetAllPlacesByCategoryId(currentCategoryId);
-            }
-            else
-            {
-                places = await dataAccessLayer.GetAllPlaces();
-            }
-
-            return places;
-        }
+        //    return places;
+        //}
 
         public void PresentMap(List<Data.Place> places)
         {
-            Karte.Pins.Clear();
+            // Karte.Pins.Clear();
 
             if(places.Count == 0)
             {
@@ -103,20 +115,20 @@ namespace MyPlaces.Standard
                 Distance.FromMeters(distance)));
 
             // Set the pins
-            foreach (var place in places.Where(p => p.Latitude != 0 && p.Longitude != 0))
+            foreach (var place in places.Where(p => p.Latitude != 0 && p.Longitude != 0)) // in case location permission is denied, we save places without coorinates.
             {
                 var pin = GetPin(place);
                 Karte.Pins.Add(pin);
             }
         }
 
-        public Pin GetPin(Data.Place place)
+        public Pin GetPin(Place place)
         {
             var pin = new Pin
             {
                 Type = PinType.Generic,
                 Position = new Position(place.Latitude, place.Longitude),
-                Label = place.Title + Environment.NewLine + "(" + place.CategoryId + ")"
+                Label = place.Title //  + Environment.NewLine + "(" + place.CategoryId + ")"
             };
             pin.Clicked += async (object sender, EventArgs e) =>
             {
