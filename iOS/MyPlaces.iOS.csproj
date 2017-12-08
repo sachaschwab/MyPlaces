@@ -188,6 +188,21 @@
     <BundleResource Include="Resources\TestImage.png" />
     <BundleResource Include="Resources\AddButton.png" />
     <BundleResource Include="Resources\Haus_image_thumb.png" />
+    <BundleResource Include="Resources\camera.png" />
+    <BundleResource Include="Resources\camera%402x.png" />
+    <BundleResource Include="Resources\camera%403x.png" />
+    <BundleResource Include="Resources\folder_image.png" />
+    <BundleResource Include="Resources\folder_image%402x.png" />
+    <BundleResource Include="Resources\folder_image%403x.png" />
+    <BundleResource Include="Resources\folder_location.png" />
+    <BundleResource Include="Resources\folder_location%402x.png" />
+    <BundleResource Include="Resources\folder_location%403x.png" />
+    <BundleResource Include="Resources\map_location.png" />
+    <BundleResource Include="Resources\map_location%402x.png" />
+    <BundleResource Include="Resources\map_location%403x.png" />
+    <BundleResource Include="Resources\map_route.png" />
+    <BundleResource Include="Resources\map_route%402x.png" />
+    <BundleResource Include="Resources\map_route%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.91635\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.91635\build\netstandard1.0\Xamarin.Forms.targets')" />
