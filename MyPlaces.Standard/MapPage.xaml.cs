@@ -47,10 +47,10 @@ namespace MyPlaces.Standard
             else
                 places = await dataAccessLayer.GetAllPlaces();
 
-            PresentMap(places);
+            PresentMap();
         }
 
-        private void PresentMap(List<Data.Place> places)
+        private void PresentMap()
         {
             if(places.Count == 0)
             {
