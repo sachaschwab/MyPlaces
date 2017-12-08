@@ -38,8 +38,8 @@ namespace MyPlaces.Standard
         {
             base.OnAppearing();
             // Refresh context upon returning to the page from categories list page
-            if (viewModel.Places.Count == 0)
-                viewModel.LoadPlacesCommand.Execute(null);
+            //if (viewModel.Places.Count == 0)
+                //viewModel.LoadPlacesCommand.Execute(null);
 
             // TODO: Decide whehter to keep the Button bar & picker feature. otherwise, erase these two lines
             CategoryButton.IsVisible = true;

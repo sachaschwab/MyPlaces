@@ -23,7 +23,7 @@ namespace MyPlaces.Standard.ViewModels
         public PlacesViewModel()
         {
             Places = new ObservableCollection<Place>();
-            LoadPlacesCommand = new Command(async () => await ExecuteLoadPlacesCommand());
+            // LoadPlacesCommand = new Command(async () => await ExecuteLoadPlacesCommand());
             LoadData().ContinueWith(t =>
             {
                 if (t.IsFaulted)
@@ -73,6 +73,8 @@ namespace MyPlaces.Standard.ViewModels
         {
             get => selectedCategory;
             set {
+                if (selectedCategory?.CategoryId == value?.CategoryId)
+                    return;
                 selectedCategory = value;
                 OnPropertyChanged(nameof(SelectedCategory));
                 if (selectedCategory == null)
@@ -97,21 +99,21 @@ namespace MyPlaces.Standard.ViewModels
             }
         }
 
-        async Task ExecuteLoadPlacesCommand()
-        {
-            Places.Clear();
+        //async Task ExecuteLoadPlacesCommand()
+        //{
+        //    Places.Clear();
 
-            if (SelectedCategory == null)
-                return; 
-            // var categoryId = ((App)App.Current).SelectedCategory?.CategoryId ?? 1;
+        //    if (SelectedCategory == null)
+        //        return; 
+        //    // var categoryId = ((App)App.Current).SelectedCategory?.CategoryId ?? 1;
 
-            var places = await dataAccessLayer.GetAllPhotosByCategoryId(SelectedCategory.CategoryId.Value);
+        //    var places = await dataAccessLayer.GetAllPhotosByCategoryId(SelectedCategory.CategoryId.Value);
 
-            foreach (var place in places)
-            {
-                Places.Add(place);
-            }
-        }
+        //    foreach (var place in places)
+        //    {
+        //        Places.Add(place);
+        //    }
+        //}
 
         private ICommand addPlaceCommand;
         public ICommand AddPlaceCommand
