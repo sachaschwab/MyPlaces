@@ -4,7 +4,7 @@
     x:Class="MyPlaces.Standard.MainPage"
     xmlns:local="clr-namespace:MyPlaces.Standard">
     <local:CategoryListPage BindingContext="{Binding CategoryListViewModel}"/>
-    <local:PlacesListPage/>
+    <local:PlacesListPage BindingContext="{Binding PlacesViewModel}"/>
     <local:MapPage/>
-    <local:NewPhotoPage/>
+    <local:NewPhotoPage BindingContext="{Binding NewPhotoViewModel}"/>
 </TabbedPage>

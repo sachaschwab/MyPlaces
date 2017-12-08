@@ -30,7 +30,13 @@ namespace MyPlaces.Standard
         {
             base.OnAppearing();
             places.Clear();
+
+            // both ways needed to remove all pins on both platforms
+            var pinsToRemove = Karte.Pins.ToList();
+            foreach (Pin pin in pinsToRemove)
+                Karte.Pins.Remove(pin);
             Karte.Pins.Clear();
+
 
             TitleLabel.IsVisible = app.SelectedPlaceId.HasValue;
 

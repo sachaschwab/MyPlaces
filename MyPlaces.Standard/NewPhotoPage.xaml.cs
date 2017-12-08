@@ -10,8 +10,6 @@ namespace MyPlaces.Standard
         {
             InitializeComponent();
 
-            this.BindingContext = new NewPhotoViewModel();
-
             if (Device.RuntimePlatform == Device.iOS)
                 Padding = new Thickness(0, 20, 0, 0);
         }

@@ -15,24 +15,18 @@ namespace MyPlaces
             MainPage = new MainPage { BindingContext = new MainPageViewModel() };
         }
 
-        public static IPhotoUtility PhotoUtility { get; set; }
+        public IPermission Permissions { get; set; }
 
-        /// <summary>Deprecated, please use SelectedCategory</summary>
-        //[Obsolete]
-        //public int? CurrentCategoryID { get; set; }
+        public static IPhotoUtility PhotoUtility { get; set; }
 
         /// <summary>Null means, there is no selected place.</summary>
         public int? SelectedPlaceId { get; set; }
 
         public Category SelectedCategory { get; set; }
 
-        public IPermission Permissions { get; set; }
-
-        public static bool LocationPermission = false;
-
         protected override void OnStart()
         {
-            if (Permissions.HasLocationPermission)
+            if (!Permissions.HasLocationPermission)
                 Permissions.RequestLocationPermission();
         }
 
