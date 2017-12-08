@@ -12,7 +12,6 @@ namespace MyPlaces.Standard
     {
         Data.DataAccessLayer dataAccessLayer = new Data.DataAccessLayer();
         Data.MapCenter mapCenter = new Data.MapCenter();
-        ViewModels.MapViewModel mapViewModel;
         int currentCategoryId;
 
         public MapPage()
@@ -22,24 +21,6 @@ namespace MyPlaces.Standard
             // Put in padding if iOS
             if (Device.RuntimePlatform == Device.iOS)
                 Padding = new Thickness(0, 20, 0, 0);
-
-            // Category constructor with dummy category = 0
-            var category = new Data.Category
-            {
-                CategoryId = 0,
-                Name = "Some name",
-                Color = "Red"
-            };
-
-            mapViewModel = new MapViewModel(category);
-            currentCategoryId = category.CategoryId.Value;
-            BindingContext = mapViewModel;
-        }
-
-        public MapPage(MapViewModel mapViewModel)
-        {
-            InitializeComponent();
-            BindingContext = this.mapViewModel = mapViewModel;
         }
 
         protected override async void OnAppearing()
@@ -120,9 +101,6 @@ namespace MyPlaces.Standard
             // With center coordinates, set the center map point
             Karte.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(centerCoords.CentreLat, centerCoords.CentreLong),
                 Distance.FromMeters(distance)));
-
-
-
 
             // Set the pins
             foreach (var place in places.Where(p => p.Latitude != 0 && p.Longitude != 0))
