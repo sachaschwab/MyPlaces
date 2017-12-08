@@ -29,6 +29,14 @@ namespace MyPlaces.Standard.ViewModels
                 if (t.IsFaulted)
                     throw t.Exception;
             });
+
+            MessagingCenter.Subscribe<object>(this, MessageNames.CATEGORY_EDITED, _ => {
+                LoadData().ContinueWith(t =>
+                {
+                    if (t.IsFaulted)
+                        throw t.Exception;
+                });
+            });
         }
 
         public string CategoryButtonText
