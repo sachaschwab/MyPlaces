@@ -13,6 +13,7 @@ namespace MyPlaces.Standard.ViewModels
 
     public class PlacesViewModel : BaseViewModel
     {
+        private string _categoryButtonText = "Press to select a category";
         Data.DataAccessLayer dataAccessLayer = new Data.DataAccessLayer();
         MapPage mapPage = new MapPage();
 
@@ -28,6 +29,19 @@ namespace MyPlaces.Standard.ViewModels
                 if (t.IsFaulted)
                     throw t.Exception;
             });
+        }
+
+        public string CategoryButtonText
+        {
+            get
+            {
+                return _categoryButtonText;
+            }
+            set
+            {
+                _categoryButtonText = value;
+                OnPropertyChanged(nameof(CategoryButtonText));
+            }
         }
 
         private async Task LoadData()
@@ -53,6 +67,14 @@ namespace MyPlaces.Standard.ViewModels
             set {
                 selectedCategory = value;
                 OnPropertyChanged(nameof(SelectedCategory));
+                if (selectedCategory == null)
+                {
+                    CategoryButtonText = "Press to select a category";
+                }
+                else
+                {
+                    CategoryButtonText = selectedCategory.Name;
+                }
                 RefreshPlaces().ContinueWith(t => { if (t.IsFaulted) throw t.Exception; });
             }
         }

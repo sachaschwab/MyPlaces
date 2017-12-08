@@ -32,7 +32,7 @@
                 FontSize="20"
                 Font="Bold,15"               
                 BackgroundColor="#eeeeee"
-                Text="Please select a category"
+                Text="{Binding CategoryButtonText}"
                 HeightRequest="50"/>
             
             <ListView x:Name="PlacesListView" Grid.Row="1" Grid.RowSpan="2"  Grid.ColumnSpan="2"

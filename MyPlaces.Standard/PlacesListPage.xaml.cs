@@ -45,16 +45,6 @@ namespace MyPlaces.Standard
             // TODO: Decide whehter to keep the Button bar & picker feature. otherwise, erase these two lines
             CategoryButton.IsVisible = true;
             CategoryPicker.IsVisible = false;
-            if (((App)App.Current).SelectedCategory == null)
-            {
-                CategoryButton.Text = "Please select a category";
-            }
-            else
-            {
-                CategoryButton.Text = ((App)App.Current).SelectedCategory.Name;
-            }
-
-
         }
 
         private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
