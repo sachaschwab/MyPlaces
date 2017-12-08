@@ -140,16 +140,20 @@ namespace MyPlaces.Standard
                 Position = new Position(place.Latitude, place.Longitude),
                 Label = place.Title + Environment.NewLine + "(" + place.CategoryId + ")"
             };
-            pin.Clicked += (object sender, EventArgs e) =>
+            pin.Clicked += async (object sender, EventArgs e) =>
             {
                 if (place == null)
                     return;
 
+                var mainPage = this.Parent as TabbedPage;
+
+
                 // Provide selected place ID to App "dispatch".
                 ((App)App.Current).SelectedPlaceId = place.PlaceId;
 
-                var mainPage = this.Parent as TabbedPage;
-                var newPhotoPage = mainPage.Children[3];
+                var newPhotoPage = mainPage.Children.OfType<NewPhotoPage>().First();
+                NewPhotoViewModel vm = (NewPhotoViewModel)newPhotoPage.BindingContext;
+                await vm.SetPlace(place.PlaceId.Value);
                 mainPage.CurrentPage = newPhotoPage;
             };
             return pin;
