@@ -63,11 +63,11 @@ namespace MyPlaces.Standard
              */
             if (currentCategoryId != 0)
             {
-                places = await dataAccessLayer.GetAllPhotosByCategoryId(currentCategoryId);
+                places = await dataAccessLayer.GetAllPlacesByCategoryId(currentCategoryId);
             }
             else
             {
-                places = await dataAccessLayer.GetAllPhotos();
+                places = await dataAccessLayer.GetAllPlaces();
             }
 
             return places;

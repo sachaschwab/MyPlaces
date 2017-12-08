@@ -62,7 +62,7 @@ namespace MyPlaces.Standard.ViewModels
             Places.Clear();
             if (selectedCategory != null)
             {
-                var result = await dataAccessLayer.GetAllPhotosByCategoryId(selectedCategory.CategoryId.Value);
+                var result = await dataAccessLayer.GetAllPlacesByCategoryId(selectedCategory.CategoryId.Value);
                 foreach (Place place in result)
                     Places.Add(place);
             }

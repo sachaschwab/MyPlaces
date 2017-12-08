@@ -45,7 +45,7 @@ namespace MyPlaces.Standard.ViewModels
 
         public async Task SetPlace(int placeId)
         {
-            Place place = await _accessLayer.GetPhotoById(placeId);
+            Place place = await _accessLayer.GetPlaceById(placeId);
             ImagePath = !string.IsNullOrEmpty(place.Path) ? Path.Combine(App.PhotoUtility.PhotoBasePath, place.Path) : null;
             Title = place.Title;
             Comment = place.Description;
