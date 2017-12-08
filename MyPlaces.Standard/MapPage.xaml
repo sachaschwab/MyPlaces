@@ -6,7 +6,7 @@
     xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
     Title="Map" Icon="map_location.png">
     <StackLayout>
-<!--        <Label Text="MyPlaces Map Page"/>-->
+    <Label x:Name="TitleLabel" IsVisible="false" HorizontalTextAlignment="Center"/>
         <maps:Map x:Name="Karte" MapType="Street" 
               VerticalOptions="FillAndExpand" 
               IsShowingUser="false">

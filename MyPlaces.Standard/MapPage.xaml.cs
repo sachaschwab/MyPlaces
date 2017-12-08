@@ -32,9 +32,12 @@ namespace MyPlaces.Standard
             places.Clear();
             Karte.Pins.Clear();
 
+            TitleLabel.IsVisible = app.SelectedPlaceId.HasValue;
+
             if (app.SelectedPlaceId.HasValue)
             {
                 Place place = await dataAccessLayer.GetPlaceById(app.SelectedPlaceId.Value);
+                TitleLabel.Text = place.Title;
                 places.Add(place);
             }
             else if (app.SelectedCategory != null)
@@ -43,52 +46,12 @@ namespace MyPlaces.Standard
             }
             else
                 places = await dataAccessLayer.GetAllPlaces();
-            
-
-            // Check whether the current category ID has been set. Otherwise, set categoryId = 0
-            //if (((App)App.Current).SelectedCategory != null)
-            //{
-            //    currentCategoryId = ((App)App.Current).SelectedCategory.CategoryId.Value; 
-            //}
-
-            //places = await GetPlacesList();
 
             PresentMap(places);
         }
 
-        /* Here, other pages can provide a category to display in background or at MapView call.
-         * Category 0 provides places of all Categories
-         */
-        //public async Task SetMapPinCategoryAsync(int categoryId) // TODO: remove, make all communication over App
-        //{
-            
-        //    currentCategoryId = categoryId;
-        //    places = await dataAccessLayer.GetAllPlacesByCategoryId(categoryId);
-        //}
-
-        //public async Task<List<Data.Place>> GetPlacesList()
-        //{
-        //    /* Here we transition from the category list page if the current category is dummy.
-        //     * Otherwise, we transition from a specific category places view.
-        //     * In the dummy case, generate list of places of ALL categories.
-        //     * Otherwise, list places of the specific category.
-        //     */
-        //    if (currentCategoryId != 0)
-        //    {
-        //        places = await dataAccessLayer.GetAllPlacesByCategoryId(currentCategoryId);
-        //    }
-        //    else
-        //    {
-        //        places = await dataAccessLayer.GetAllPlaces();
-        //    }
-
-        //    return places;
-        //}
-
-        public void PresentMap(List<Data.Place> places)
+        private void PresentMap(List<Data.Place> places)
         {
-            // Karte.Pins.Clear();
-
             if(places.Count == 0)
             {
                 return;
