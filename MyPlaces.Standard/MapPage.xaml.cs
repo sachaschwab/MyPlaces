@@ -97,8 +97,10 @@ namespace MyPlaces.Standard
             {
                 Type = PinType.Generic,
                 Position = new Position(place.Latitude, place.Longitude),
-                Label = place.Title //  + Environment.NewLine + "(" + place.CategoryId + ")"
+                Label = place.Title, //  + Environment.NewLine + "(" + place.CategoryId + ")"
+                Address = place.Description
             };
+
             pin.Clicked += async (object sender, EventArgs e) =>
             {
                 if (place == null)
