@@ -6,13 +6,8 @@ namespace MyPlaces.NUnitTests
     public class Test
     {
         [Test()]
-        public void TestCase()
+        public void DistanceCalculatorTest()
         {
-            //var newPhotoVM = new MyPlaces.Standard.ViewModels.NewPhotoViewModel();
-
-            //newPhotoVM.Title = "Hallo";
-            //Assert.Equals(newPhotoVM.Title, "Hallo");
-
             Double longitudeHSR = 47.223198;
             Double latitudeHSR = 8.817658;
 
