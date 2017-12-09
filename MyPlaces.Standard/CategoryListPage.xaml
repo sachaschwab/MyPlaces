@@ -27,13 +27,14 @@
             </Grid.RowDefinitions>
             <StackLayout Orientation="Horizontal" Grid.ColumnSpan="2">
                 <Label Text="Name" VerticalTextAlignment="Center"/>
-                <Entry Text="{Binding Category.Name}" HorizontalOptions="FillAndExpand"/>
+                <Entry Text="{Binding Category.Name}" HorizontalOptions="FillAndExpand" AutomationId="CategoryEntry"/>
             </StackLayout>
             <Slider Grid.Row="1" Minimum="0" Maximum="255" BackgroundColor="#FF0000" Value="{Binding Red, Mode=TwoWay}"/>
             <Slider Grid.Row="2" Minimum="0" Maximum="255" BackgroundColor="#00FF00" Value="{Binding Green, Mode=TwoWay}"/>
             <Slider Grid.Row="3" Minimum="0" Maximum="255" BackgroundColor="#0000FF" Value="{Binding Blue, Mode=TwoWay}"/>
             <BoxView Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Color="{Binding Color}"/>
-            <Button Grid.ColumnSpan="2" Grid.Row="4" Text="Save" Clicked="Save_Clicked" Command="{Binding SaveCommand}"/>
+            <Button Grid.ColumnSpan="2" Grid.Row="4" Text="Save" Clicked="Save_Clicked" Command="{Binding SaveCommand}"
+                AutomationId="SaveCategoryButton"/>
         </Grid>
         <ListView Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" ItemsSource="{Binding Categories}" ItemTapped="Handle_ItemTapped">
             <ListView.ItemTemplate>
@@ -49,7 +50,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Image Grid.Row="2" Grid.Column="1" Source="AddButton.png" WidthRequest="60" HeightRequest="60" Margin="20">
+        <Image Grid.Row="2" Grid.Column="1" Source="AddButton.png" WidthRequest="60" HeightRequest="60" Margin="20"
+            AutomationId="AddCategoryButton">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding AddCategoryCommand}"/>
             </Image.GestureRecognizers>

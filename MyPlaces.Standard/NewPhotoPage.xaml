@@ -20,20 +20,23 @@
                     Grid.Row="0"
                     Placeholder="Title"
                     Text="{Binding Title}"
-                    IsEnabled="{Binding IsEditable}"/>
+                    IsEnabled="{Binding IsEditable}"
+                    AutomationId="TitleEntry"/>
 
             <Entry x:Name="DescriptionText"
                     Text="{Binding Comment}"
                     Placeholder="Your description here"
                     Grid.Row="1"
-                    IsEnabled="{Binding IsEditable}"/>
+                    IsEnabled="{Binding IsEditable}"
+                    AutomationId="DescriptionEntry"/>
 
             <Picker x:Name="CategoryPicker" 
                     Grid.Row="2"
                     Title="Tap to select a category"
                     ItemsSource="{Binding Categories }"
                     ItemDisplayBinding="{Binding Name}"
-                    SelectedItem="{Binding SelectedCategory}"/>
+                    SelectedItem="{Binding SelectedCategory}"
+                    AutomationId="CategoryPicker"/>
         
             <Image x:Name="Foto" 
                     Grid.Row="3"
@@ -52,7 +55,8 @@
                     Grid.Row="4"
                     Text="SAVE"
                     IsVisible="{Binding IsSaveable}"
-                    Command="{Binding SaveCommand}"/>
+                    Command="{Binding SaveCommand}"
+                    AutomationId="SaveButton"/>
         
             <Label x:Name="DateTimeLabel" 
                     Grid.Row="5"
@@ -63,12 +67,14 @@
                     Grid.Row="6"
                     Text="take a picture!"
                     Command="{Binding TakeAPictureCommand}"
-                    IsVisible="{Binding IsEditable}"/>
+                    IsVisible="{Binding IsEditable}"
+                    AutomationId="TakePictureButton"/>
             
             <Image x:Name="MapButton" 
                     Grid.Row="7"
                     Source="pin1.png"
-                    IsVisible="{Binding MapCanBeAccessed}">
+                    IsVisible="{Binding MapCanBeAccessed}"
+                    AutomationId="ShowOnMapButton">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ShowOnMapCommand}"/>
                 </Image.GestureRecognizers>

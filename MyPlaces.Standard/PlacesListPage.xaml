@@ -62,7 +62,8 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Image Grid.Row="2" Grid.Column="1" Source="AddButton.png" WidthRequest="60" HeightRequest="60" Margin="20">
+            <Image Grid.Row="2" Grid.Column="1" Source="AddButton.png" WidthRequest="60" HeightRequest="60" Margin="20"
+                AutomationId="AddPlaceButton">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding AddPlaceCommand}"/>
                 </Image.GestureRecognizers>
