@@ -102,6 +102,32 @@ namespace MyPlaces.Standard.ViewModels
             }
         }
 
+        private bool _isRefreshing = false;
+        public bool IsRefreshing
+        {
+            get { return _isRefreshing; }
+            set
+            {
+                _isRefreshing = value;
+                OnPropertyChanged(nameof(IsRefreshing));
+            }
+        }
+
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    IsRefreshing = true;
+
+                    await RefreshPlaces();
+
+                    IsRefreshing = false;
+                });
+            }
+        }  
+
         private ICommand addPlaceCommand;
         public ICommand AddPlaceCommand
         {
